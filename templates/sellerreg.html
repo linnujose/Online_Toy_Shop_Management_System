@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sellerRegistration.css">
+    <title>Seller Registration</title>
+</head>
+<body>
+    <h2>Seller Registration</h2>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="shopName">Shop Name:</label>
+            <input type="text" id="shopName" name="shopName" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="validation"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="validation"></span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="validation"></span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span class="validation"></span>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            <span class="validation"></span>
+        </div>
+        <div class="form-group">
+            <label for="shopAddress">Shop Address:</label>
+            <textarea id="shopAddress" name="shopAddress" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="taxIdentificationNumber">Tax Identification Number:</label>
+            <input type="text" id="taxIdentificationNumber" name="taxIdentificationNumber" required>
+            <span class="validation"></span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <script src="sellerRegistration.js"></script>
+</body>
+</html>
