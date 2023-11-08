@@ -1,0 +1,423 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>add_product</title>
+    <link rel="stylesheet" href="style.css" />
+	<style>
+	/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(130, 106, 251);
+}
+.container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+
+textarea {
+    height: 100%;
+}
+
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(130, 106, 251);
+}
+.form button:hover {
+  background: rgb(88, 56, 250);
+}
+/*Responsive*/
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+
+
+		.modal{
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.7);
+			z-index: 1;
+		}
+
+		.modal-content {
+			background-color: #fff;
+			border-radius: 5px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			text-align: center;
+		}
+
+		#successModal {
+			display: none;
+		}
+		
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+
+/* sidebar  start*/
+
+
+    /* sidebar end */
+
+
+
+
+
+
+	</style>
+  </head>
+  <body>
+    
+
+    <section class="container">
+      <header>Add product Form</header>
+      <form method="post" action="{% url 'add_product' %}" enctype="multipart/form-data" id="productForm" class="form">
+        {% csrf_token %}
+        <div class="input-box">
+          <label>Product Name</label>
+          <input type="text" id="productName" name="product_name" placeholder="Enter Product Name" required />
+        </div>
+
+        <div class="input-box">
+          <label>Product Description</label>
+          <input type="text" id="productDescription" name="product_description" placeholder="Enter Product Description" maxlength="500" required />
+        </div>
+		
+        <div class="input-box address">
+          <label>Category</label>
+          <div class="column">
+            <div class="select-box">
+              <select name="category" id="productCategory">
+                {% for category in category %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+                <option></option>
+              </select>
+            </div>
+            <div class="select-box">
+              <select name="sub_category" id="productSubcategory">
+                {% for sub in sub %}
+                  <option value="{{ sub.id }}" data-category="{{ sub.category.id }}">{{ sub.name }}</option>
+                {% endfor %}
+                <option hidden>Sub Category</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            var categorySelect = document.getElementById("productCategory");
+            var subcategorySelect = document.getElementById("productSubcategory");
+          
+            // Function to update subcategories based on the selected category.
+            function updateSubcategories() {
+              var selectedCategory = categorySelect.value;
+          
+              // Hide all subcategory options.
+              for (var i = 0; i < subcategorySelect.options.length; i++) {
+                subcategorySelect.options[i].style.display = "none";
+              }
+          
+              // Show subcategories that match the selected category.
+              for (var i = 0; i < subcategorySelect.options.length; i++) {
+                var subcategoryOption = subcategorySelect.options[i];
+                if (subcategoryOption.getAttribute("data-category") === selectedCategory || subcategoryOption.getAttribute("data-category") === "") {
+                  subcategoryOption.style.display = "block";
+                }
+              }
+            }
+          
+            // Initial update based on the selected category on page load.
+            updateSubcategories();
+          
+            // Add an event listener to update subcategories when the category is changed.
+            categorySelect.addEventListener("change", updateSubcategories);
+          });
+          </script>
+          
+		<!-- <div class="input-box address">
+          <label>Category</label>
+          
+          <div class="column">
+            <div class="select-box">
+              <select name="category" id="productCategory">
+                {% for category in category %}
+                        <option value="{{ category.id }}">{{category.name}}</option>
+                {%endfor%}     
+				<option></option>
+              </select>
+            </div>
+			
+            <div class="select-box">
+			
+              <select name="sub_category" id="productSubcategory">
+                {% for sub in sub %}
+                <option value="{{ sub.id }}">{{sub.name}}</option>
+                {%endfor%}
+                <option hidden>Sub Category</option>        
+              </select>
+            </div>
+          </div> -->
+		       <!-- <option hidden>Category</option>
+                <option value="1">Toys & Games</option>
+                <option value="2">Ride-Ons & Cycle</option>
+                <option value="3">Soft Toys</option>
+                <option value="4">Vehicles</option>
+                <option value="5">Action Figures</option>
+                <option value="6">Board Games</option> -->
+                   <!-- <option value="1">Teddy Bears</option>
+                <option value="2">Dolls & Playsets</option>
+                <option value="3">Outdoors Sports</option>
+                <option value="4">Tricycle</option>
+                <option value="5">Scooter</option>
+                <option value="6">Superhero</option>
+                <option value="7">Ludo,Snakes & Ladders</option>
+                <option value="7">Playing Cards</option> -->
+          <div class="column">
+            <div class="select-box">
+              <select name="brand" id="productBrand">
+                <option hidden>Brand</option>
+                <option value="1">Disney</option>
+                <option value="2">Lego</option>
+                <option value="3">Barbie</option>
+                <option value="4">Hotwheels</option>
+				        <option value="5">WowWee</option>
+                <option value="6">Nerf</option>
+               
+              </select>
+            </div>
+			
+			<div class="select-box">
+              <select name="age" id="age">
+                <option hidden>Age</option>
+                <option value="1">3-5 Years</option>
+                <option value="2">0-18 Months</option>
+                <option value="3">18-36 Months</option>
+                <option value="4">5-7 Years</option>
+                <option value="5">7-9 Years</option>
+                <option value="6">9-12 Years</option>
+                <option value="7">12+ Years</option>
+				
+              </select>
+            </div>
+          </div>
+        </div>
+		
+		
+		
+		<div class="column">
+          <div class="input-box">
+            <label>Material</label>
+            <input type="text" name="material" placeholder="material"  required />
+          </div>
+          <div class="input-box">
+            <label>Price</label>
+            <input type="number" name="price" placeholder="" min="0.01" step="0.01"required />
+          </div>
+        </div>
+		
+		
+
+        
+        <div class="gender-box">
+          <h3>Gender</h3>
+          <div class="gender-option">
+            <div class="gender">
+              <input type="radio" id="check-male" name="gender" checked />
+              <label for="check-male">male</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-female" name="gender" />
+              <label for="check-female">Female</label>
+            </div>
+            <div class="gender">
+              <input type="radio" id="check-other" name="gender" />
+              <label for="check-other">Unisex</label>
+            </div>
+          </div>
+        </div>
+		
+		
+		<div class="input-box address">
+          <label>Seller</label>
+          
+          <div class="column">
+            <div class="select-box">
+              <select name="seller">
+                <option hidden>select a seller</option>
+				
+                    {% for seller in sellers %}
+                        <option value="{{ seller.id }}">{{ seller.shop_name }}</option>
+                    {% endfor %}
+                    <!-- Options for sellers should be populated from your database -->
+                
+              </select>
+            </div>
+            
+
+
+            
+            <label for="stockQuantity">Stock Quantity</label>
+            <div class="column"></div>
+                
+                <input type="number" id="stockQuantity" name="stock_quantity" required>
+            
+                
+          </div>
+          <div class="column">
+            <div class="input-box">
+            <label>Status</label>
+			<div class="select-box">
+              <select name="status">
+                <option hidden>Status</option>
+                <option>Available</option>
+                <option>Not Available</option>
+              </select>
+            </div>
+            
+          </div>
+          <div class="input-box">
+            
+          </div>
+          </div>
+        </div>
+		
+		
+		
+        <div class="input-box address">
+          <label>Product Image(JPEG,JPG,PNG only)</label>
+          <input type="file" id="productImage" name="product_image" accept=".jpeg, .jpg, .png" required>
+          
+          
+        </div>
+		<div class="form-group">
+            <button type="submit" id="addProductButton" >Add Product<a href="{% url 'sellerhome' %}"></a></button>
+        </div>
+		
+		<div class="modal" id="successModal">
+        <div class="modal-content">
+            <p>PRODUCT ADDED SUCCESSFULLY</p>
+        </div>
+    </div>
+
+    <script src="{% static 'add_product.js' %}"></script>
+		
+        
+      </form>
+    </section>
+  </body>
+</html>
