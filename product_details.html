@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your head content, including CSS and other resources -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .product-detail {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0;
+            padding: 5px 0;
+            color: #7b2222;
+        }
+
+        .product-info {
+            margin-top: 20px;
+        }
+
+        .product-info p {
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            background-color: #dbcd34;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px 5px;
+            transition: background-color 0.2s;
+            background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-detail">
+        <h2>{{ product.name }}</h2>
+        <img src="{{ product.product_image.url }}" alt="{{ product.name }}">
+        <p>Description: {{ product.description }}</p>
+        <div class="product-info">
+            <p>Price: ${{ product.price }}</p>
+            <p>Brand: {{ product.brand }}</p>
+            <p>Age: {{ product.age }}</p>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+        
+        <!-- Add to Wishlist Button -->
+        <a href="{% url 'add_to_wishlist' product.id %}">Add to Wishlist</a>
+    </div>
+</body>
+</html>
