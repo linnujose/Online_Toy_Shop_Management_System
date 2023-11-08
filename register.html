@@ -1,0 +1,531 @@
+<!-- <html>
+
+<h1>register</h1>
+</html> -->
+
+
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Registration Form </title>
+    <!-- <link rel="stylesheet" href="{% static '/css/login.css' ' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+   
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins',sans-serif;
+      }
+      html, body{
+        display: grid;
+        height: 100vh;
+        width: 100%;
+        place-items: center;
+        /* background: linear-gradient(to right, #99004d 0%, #ff0080 100%); */
+        background: linear-gradient(to right, #e2dfe1 0%, #c3a5b4 100%);
+        /* background-image: url('/static/img/image3.jpg');
+        background-size: cover;
+        background-repeat: no-repeat; */
+        
+      }
+      ::selection{
+        background: #ff80bf;
+      
+      }
+      .container{
+        background: #fff;
+        max-width: 700px;
+        width: 100%;
+        padding: 25px 30px;
+        border-radius: 5px;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+      }
+      .container form .title{
+        font-size: 30px;
+        font-weight: 600;
+        margin: 20px 0 10px 0;
+        position: relative;
+      }
+      .container form .title:before{
+        content: '';
+        position: absolute;
+        height: 4px;
+        width: 33px;
+        left: 0px;
+        bottom: 3px;
+        border-radius: 5px;
+        background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
+      }
+      .container form .input-box{
+        width: 100%;
+        height: 45px;
+        margin-top: 25px;
+        position: relative;
+      }
+      .container form .input-box input{
+        width: 100%;
+        height: 100%;
+        outline: none;
+        font-size: 16px;
+        border: none;
+      }
+      .container form .underline::before{
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: #ccc;
+        left: 0;
+        bottom: 0;
+      }
+      .container form .underline::after{
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: linear-gradient(to right, #99004d 0%, #ff0080 100%);
+        left: 0;
+        bottom: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: all 0.3s ease;
+      }
+      /* .container form .input-box input:focus ~ .underline::after,
+      .container form .input-box input:valid ~ .underline::after{
+        transform: scaleX(1);
+        transform-origin: left;
+      } */
+      .container form .button{
+        margin: 40px 0 20px 0;
+      }
+      .container .input-box input[type="submit"]{
+        background: linear-gradient(to right, #3737ee 0%, #1c1fc4 100%);
+        font-size: 17px;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .container .input-box input[type="submit"]:hover{
+        letter-spacing: 1px;
+        background: linear-gradient(to left, #0e34b0 0%, #0f30b5 100%);
+      }
+      .container .option{
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .error-message{
+        color: red;
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+      <form action="#" method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="title">Registration</div>
+        <div class="input-box underline">
+          <input type="text" placeholder="Enter Your Username" id="username" name="username" required oninput="validateUsername()">
+          <div class="underline"></div>
+          <div class="error-message" id="username-error" style="color:red;" font-size="10px;"></div>
+        </div>
+
+        <div class="input-box underline">
+            <input type="text" placeholder="First Name" id="name" name="name" required oninput="validateName()">
+            <div class="underline"></div>
+            <div class="error-message" id="name-error" style="color:red;" font-size="10px;"></div>
+        </div>
+
+        <!-- <div class="input-box underline">
+            <input type="text" placeholder="Last Name" id="lname" name="lname" required>
+            <div class="underline"></div>
+        </div> -->
+
+        <div class="input-box underline">
+            <input type="text" placeholder="Enter Your Email" id="email" name="email" required oninput="validateEmail()">
+            <div class="underline"></div>
+            <div class="error-message" id="email-error" style="color:red;" font-size="10px;"></div>
+        </div>
+
+
+
+
+        <div class="input-box">
+          <input type="password" placeholder=" Password" id="password" name="password" required oninput="validatePassword()">
+          <div class="underline"></div>
+          <div class="error-message" id="password-error" style="color:red;" font-size="10px;"></div>
+        </div>
+
+        <div class="input-box">
+            <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password" required oninput="validateConfirmPassword()">
+            <div class="underline"></div>
+            <div class="error-message" id="confirm-password-error" style="color:red;" font-size="10px;"></div>
+        </div>
+
+        <div class="input-box button">
+          <input type="submit" name="submit" value="Register Now">
+        </div>
+      </form>
+       
+      <div class="option"><p class="alternative">Existing User ? <a href="{% url 'login' %}">Log In </a></p></div> 
+        
+    </div>
+
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const username = document.getElementById('username');
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
+    
+        form.addEventListener('submit', function (event) {
+          let isValid = true;
+    
+          // Reset previous error messages
+          const errorMessages = document.querySelectorAll('.error-message');
+          errorMessages.forEach((errorMessage) => {
+            errorMessage.remove();
+          });
+    
+          if (username.value.trim() === '') {
+            displayError(username, 'Username is required.');
+            isValid = false;
+          }
+    
+          if (name.value.trim() === '') {
+            displayError(name, 'First Name is required.');
+            isValid = false;
+          }
+    
+          if (email.value.trim() === '') {
+            displayError(email, 'Email is required.');
+            isValid = false;
+          } else if (!isValidEmail(email.value)) {
+            displayError(email, 'Invalid email format.');
+            isValid = false;
+          }
+    
+          if (password.value.trim() === '') {
+            displayError(password, 'Password is required.');
+            isValid = false;
+          }
+    
+          if (confirmPassword.value.trim() === '') {
+            displayError(confirmPassword, 'Confirm Password is required.');
+            isValid = false;
+          } else if (password.value !== confirmPassword.value) {
+            displayError(confirmPassword, 'Passwords do not match.');
+            isValid = false;
+          }
+    
+          if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+          }
+        });
+    
+        function displayError(inputElement, errorMessageText) {
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'error-message';
+          errorMessage.textContent = errorMessageText;
+          inputElement.parentElement.appendChild(errorMessage);
+        }
+    
+        function isValidEmail(email) {
+          // Basic email format validation
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailPattern.test(email);
+        }
+      });
+    </script> -->
+
+    <!-- <script>
+      const form = document.querySelector("form"),
+      emailField = form.querySelector(".email-field"),
+      emailInput = emailField.querySelector(".email"),
+      passField = form.querySelector(".create-password"),
+      passInput = passField.querySelector(".password"),
+      cPassField = form.querySelector(".confirm-password"),
+      cPassInput = cPassField.querySelector(".cPassword");
+
+        // Email Validtion
+      function checkEmail() {
+        const emaiPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!emailInput.value.match(emaiPattern)) {
+          return emailField.classList.add("invalid"); //adding invalid class if email value do not mathced with email pattern
+        }
+        emailField.classList.remove("invalid"); //removing invalid class if email value matched with emaiPattern
+      }
+
+          // Hide and show password
+      const eyeIcons = document.querySelectorAll(".show-hide");
+
+      eyeIcons.forEach((eyeIcon) => {
+        eyeIcon.addEventListener("click", () => {
+          const pInput = eyeIcon.parentElement.querySelector("input"); //getting parent element of eye icon and selecting the password input
+          if (pInput.type === "password") {
+            eyeIcon.classList.replace("bx-hide", "bx-show");
+            return (pInput.type = "text");
+          }
+          eyeIcon.classList.replace("bx-show", "bx-hide");
+          pInput.type = "password";
+        });
+      });
+
+      // Password Validation
+      function createPass() {
+        const passPattern =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (!passInput.value.match(passPattern)) {
+          return passField.classList.add("invalid"); //adding invalid class if password input value do not match with passPattern
+        }
+        passField.classList.remove("invalid"); //removing invalid class if password input value matched with passPattern
+      }
+
+      // Confirm Password Validtion
+      function confirmPass() {
+        if (passInput.value !== cPassInput.value || cPassInput.value === "") {
+          return cPassField.classList.add("invalid");
+        }
+        cPassField.classList.remove("invalid");
+      }
+
+        // Calling Funtion on Form Sumbit
+      form.addEventListener("submit", (e) => {
+        e.preventDefault(); //preventing form submitting
+        checkEmail();
+        createPass();
+        confirmPass();
+
+        //calling function on key up
+        emailInput.addEventListener("keyup", checkEmail);
+        passInput.addEventListener("keyup", createPass);
+        cPassInput.addEventListener("keyup", confirmPass);
+
+        if (
+          !emailField.classList.contains("invalid") &&
+          !passField.classList.contains("invalid") &&
+          !cPassField.classList.contains("invalid")
+        ) {
+          location.href = form.getAttribute("action");
+        }
+      });
+    </script> -->
+
+<!-- neeeewwwwww -->
+    <!-- <script>
+      function validateForm() {
+          var username = document.getElementById('username').value;
+          var name = document.getElementById('name').value;
+          var email = document.getElementById('email').value;
+          var password = document.getElementById('password').value;
+          var confirmPassword = document.getElementById('confirm-password').value;
+
+          var usernameError = document.getElementById('username-error');
+          var nameError = document.getElementById('name-error');
+          var emailError = document.getElementById('email-error');
+          var passwordError = document.getElementById('password-error');
+          var confirmPasswordError = document.getElementById('confirm-password-error');
+
+          // Reset previous error messages
+          usernameError.textContent = "";
+          nameError.textContent = "";
+          emailError.textContent = "";
+          passwordError.textContent = "";
+          confirmPasswordError.textContent = "";
+
+          var isValid = true;
+
+          if (username.trim().length < 6) {
+              usernameError.textContent = "Username should be at least 6 characters long.";
+              isValid = false;
+          }
+          if (name.value.trim() === '') {
+              nameError.textContent = "Name is required.";
+            
+              isValid = false;
+          }
+
+          var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+          if (!emailRegex.test(email)) {
+              emailError.textContent = "Enter a valid email address.";
+              isValid = false;
+          }
+
+          if (password.trim().length < 6 || !isStrongPassword(password)) {
+              passwordError.textContent = "Password should be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+              isValid = false;
+          }
+
+          if (confirmPassword !== password) {
+              confirmPasswordError.textContent = "Passwords do not match.";
+              isValid = false;
+          }
+
+          if (isValid) {
+              alert("Successfully registered!");
+          }
+
+          return isValid;
+      }
+
+      function isStrongPassword(password) {
+          // Define a regular expression to check for a strong password
+          var strongPasswordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/;
+          return strongPasswordRegex.test(password);
+      }
+  </script> -->
+
+
+  <!-- ggggggggggggggg -->
+  <!-- <script>
+    
+        document.addEventListener("DOMContentLoaded", function() {
+        // Get references to the form fields
+        var usernameField = document.getElementById("username");
+        var nameField = document.getElementById("name");
+        var emailField = document.getElementById("email");
+        var passwordField = document.getElementById("password");
+        var confirmPasswordField = document.getElementById("confirm-password");
+
+        // Get references to the error message elements
+        var usernameError = document.getElementById("username-error");
+        var nameError = document.getElementById("name-error");
+        var emailError = document.getElementById("email-error");
+        var passwordError = document.getElementById("password-error");
+        var confirmPasswordError = document.getElementById("confirm-password-error");
+
+        // Regular expressions for validation
+        var usernamePattern = /^[a-zA-Z0-9_]+$/;
+        var namePattern = /^[A-Za-z]+$/;
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        // Add event listeners for input fields
+        usernameField.addEventListener("input", function() {
+          if (!usernameField.value.match(usernamePattern)) {
+            usernameError.textContent = "Username can only contain letters, numbers, and underscores.";
+          } else {
+            usernameError.textContent = "";
+          }
+        });
+
+        nameField.addEventListener("input", function() {
+          if (!nameField.value.match(namePattern)) {
+            nameError.textContent = "Name should contain only letters.";
+          } else {
+            nameError.textContent = "";
+          }
+        });
+
+        emailField.addEventListener("input", function() {
+          if (!emailField.value.match(emailPattern)) {
+            emailError.textContent = "Invalid email address.";
+          } else {
+            emailError.textContent = "";
+          }
+        });
+
+        // You can add similar event listeners for password and confirmPassword fields.
+        // Validate passwords, check for password match, and display error messages as needed.
+
+        // Add form submission validation
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+          // Perform final validation here if needed.
+          // Return false to prevent form submission if there are errors.
+        });
+      });
+
+
+  </script>
+     -->
+    
+      
+
+
+      <script>
+	  
+            function validateUsername() {
+                const username = document.getElementById("username").value;
+                const errorElement = document.getElementById("username-error");
+                if (/[^a-zA-Z]/.test(username)) {
+                    errorElement.innerText = "Username can only contain alphabets";
+                } else {
+                    errorElement.innerText = "";
+                }
+            }
+			
+			
+			function validateName() {
+                const name = document.getElementById("name").value;
+                const errorElement = document.getElementById("name-error");
+                if (/[^a-zA-Z]/.test(name)) {
+                    errorElement.innerText = "Name can only contain alphabets";
+                } else {
+                    errorElement.innerText = "";
+                }
+            }
+			
+			
+        
+            function validateEmail() {
+                const email = document.getElementById("email").value;
+                const errorElement = document.getElementById("email-error");
+                if (!/^[a-zA-Z0-9._-]+@(ajce\.com|gmail\.com)$/.test(email)) {
+                    errorElement.innerText = "Invalid email. Use ajce.com or gmail.com";
+                } else {
+                    errorElement.innerText = "";
+                }
+            }
+        
+            function validatePassword() {
+                const password = document.getElementById("password").value;
+                const errorElement = document.getElementById("password-error");
+                const regex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/;
+                if (!regex.test(password)) {
+                    errorElement.innerText ="Password must contain at least one lowercase,uppercase,numerical,special character,and be at least 6 characters long";
+                } else {
+                    errorElement.innerText = "";
+                }
+            }
+        
+            function validateConfirmPassword() {
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm_password").value;
+                const errorElement = document.getElementById("confirm-password-error");
+                if (password !== confirmPassword) {
+                    errorElement.innerText = "Passwords do not match";
+                } else {
+                    errorElement.innerText = "";
+                }
+            }
+        
+            function validateForm() {
+                // Add any additional validation logic here (if needed)
+                return true; // Return false to prevent form submission
+            }
+        </script>
+
+    
+  </body>
+</html>
