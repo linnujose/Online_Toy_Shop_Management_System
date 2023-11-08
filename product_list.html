@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #cf3434;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+}
+
+.product-card {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details h2 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Add more styling as needed */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MerryKids</h1>
+        
+    </header>
+    <div class="product-container">
+        {% for product in products %}
+        <div class="product-card">
+            <a href="{% url 'product_details' product.id %}">
+                <img src="{{ product.product_image.url }}" alt="{{ product.name }}">
+            </a>
+            <div class="product-details">
+                <h2>{{ product.name }}</h2>
+                <!-- <p>{{ product.description }}</p> -->
+                <p>Price: ${{ product.price }}</p>
+                <!-- <p>Category: {{ product.category }}</p>
+                <p>:stock_quantity {{ product.stock_quantity }}</p> -->
+                
+                <p>Brand: {{ product.brand }}</p>
+                <p>Age: {{ product.age }}</p>
+                <p>Status: 
+                    {% if product.status == "Available" %}
+                        <span class="active-status">Available</span>
+                    {% else %}
+                        <span class="inactive-status">Not Available</span>
+                    {% endif %}
+                </p>
+                <p>stock_quantity: {{ product.quantity }}</p> 
+                
+                    
+                
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-products">No products available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
