@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <style>
+        /* Style for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style for the wishlist container */
+        .wishlist-container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for each wishlist item */
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .wishlist-item img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 20px;
+        }
+
+        /* Style for the product details */
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-details h3 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .product-details p {
+            margin: 5px 0;
+        }
+
+        /* Style for the "Remove from Wishlist" button */
+        .remove-button {
+            background-color: #ff7700;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            background: linear-gradient(to right, #992900 0%, #ff0080 100%);
+        }
+
+        /* Style for the "No items in wishlist" message */
+        .no-items-message {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="wishlist-container">
+        <h1>Your Wishlist</h1>
+        {% if wishlist_items %}
+            <ul>
+                {% for item in wishlist_items %}
+                    <li class="wishlist-item">
+                        <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}">
+                        <div class="product-details">
+                            <h3>{{ item.product.name }}</h3>
+                            <p>Price: ${{ item.product.price }}</p>
+                            <div></div>
+                            <a class="remove-button" href="{% url 'remove_from_wishlist' item.product.id %}">Remove </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-items-message">No items in your wishlist.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
