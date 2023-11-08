@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seller Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sellerreg.css">
+    <style>
+        /* Reset default margin and padding for all elements */
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        /* Set a background color for the entire page */
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+        
+        }
+
+        /* Style the registration form container */
+        form {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        max-width: 700px;
+        width: 90%;
+        text-align: left;
+        }
+
+        /* Style the form header */
+        h2 {
+        margin-top: 80px;
+        font-size: 40px;
+        margin-bottom: 2px;
+        text-align: center;
+        color: rgb(178, 24, 127);
+
+        }
+
+        /* Style form group labels and inputs */
+        .form-group {
+        margin-bottom: 20px;
+        }
+
+        label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        }
+
+        /* Style validation spans for input fields */
+        .validation {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        }
+
+        /* Style the registration button */
+        button[type="submit"] {
+        background-color: #a717a0;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 0;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+        background-color: #ee23ea;
+        }
+
+        /* Style the link for existing users */
+        .alternative {
+        font-size: 16px;
+        margin-top: 10px;
+        }
+
+        /* Media query for smaller screens */
+        @media screen and (max-width: 480px) {
+        form {
+            width: 100%;
+        }
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <form action="#" method="POST" onsubmit="return validateForm()">
+     
+        <h2>Seller Registration</h2> 
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="shopName">Shop Name:</label>
+            <input type="text" id="shopName" name="shopName" required oninput="validateUsername()">
+            <div class="error-message" id="shopName-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="username-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="email-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="password-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="confirmPassword-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="phoneNumber-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="shopAddress">Shop Address:</label>
+            <textarea id="shopAddress" name="shopAddress" required oninput="validateUsername()"></textarea>
+            <div class="error-message" id="shopAddress-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <div class="form-group">
+            <label for="taxIdentificationNumber">Tax Identification Number:</label>
+            <input type="text" id="taxIdentificationNumber" name="taxIdentificationNumber" required oninput="validateUsername()">
+            <span class="validation"></span>
+            <div class="error-message" id="taxIdentificationNumber-error" style="color:red;" font-size="10px;"></div>
+        </div>
+        <button type="submit">Register<a href="{% url 'login' %}"></a></button>
+        
+    </form>
+
+    <script>
+    
+	  
+      function validateshopname() {
+          const username = document.getElementById("username").value;
+          const errorElement = document.getElementById("username-error");
+          if (/[^a-zA-Z]/.test(username)) {
+              errorElement.innerText = "Username can only contain alphabets";
+          } else {
+              errorElement.innerText = "";
+          }
+      }
+      
+      
+      function validateName() {
+          const name = document.getElementById("name").value;
+          const errorElement = document.getElementById("name-error");
+          if (/[^a-zA-Z]/.test(name)) {
+              errorElement.innerText = "Name can only contain alphabets";
+          } else {
+              errorElement.innerText = "";
+          }
+      }
+      
+      
+  
+      function validateEmail() {
+          const email = document.getElementById("email").value;
+          const errorElement = document.getElementById("email-error");
+          if (!/^[a-zA-Z0-9._-]+@(ajce\.com|gmail\.com)$/.test(email)) {
+              errorElement.innerText = "Invalid email. Use ajce.com or gmail.com";
+          } else {
+              errorElement.innerText = "";
+          }
+      }
+  
+      function validatePassword() {
+          const password = document.getElementById("password").value;
+          const errorElement = document.getElementById("password-error");
+          const regex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,}$/;
+          if (!regex.test(password)) {
+              errorElement.innerText ="Password must contain at least one lowercase,uppercase,numerical,special character,and be at least 6 characters long";
+          } else {
+              errorElement.innerText = "";
+          }
+      }
+  
+      function validateConfirmPassword() {
+          const password = document.getElementById("password").value;
+          const confirmPassword = document.getElementById("confirm_password").value;
+          const errorElement = document.getElementById("confirm-password-error");
+          if (password !== confirmPassword) {
+              errorElement.innerText = "Passwords do not match";
+          } else {
+              errorElement.innerText = "";
+          }
+      }
+  
+      function validateForm() {
+          // Add any additional validation logic here (if needed)
+          return true; // Return false to prevent form submission
+      }
+  </script>
+
+    </script>
+</body>
+</html>
