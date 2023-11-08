@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Product</title>
+    <style>
+        /* Container styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .container header {
+            font-size: 1.5rem;
+            color: #333;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form styles */
+        .form .input-box {
+            margin-top: 20px;
+        }
+
+        .input-box label {
+            color: #333;
+        }
+
+        .input-box input[type="text"],
+        .input-box input[type="number"] {
+            width: 100%;
+            outline: none;
+            font-size: 1rem;
+            color: #707070;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0 15px;
+            height: 40px;
+        }
+
+        .input-box input:focus {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .form .column {
+            display: flex;
+            column-gap: 15px;
+        }
+
+        /* Gender styles */
+        .gender-box {
+            margin-top: 20px;
+        }
+
+        .gender-box h3 {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            column-gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .gender {
+            display: flex;
+            align-items: center;
+            column-gap: 5px;
+        }
+
+        .gender input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .gender label {
+            color: #707070;
+        }
+
+        /* Seller and Stock Quantity styles */
+        .address .select-box {
+            margin-top: 15px;
+        }
+
+        .select-box select {
+            width: 100%;
+            outline: none;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            color: #707070;
+            font-size: 1rem;
+            height: 40px;
+        }
+
+        .form .input-box input[type="file"] {
+            margin-top: 15px;
+        }
+
+        /* Button styles */
+        .form button {
+            height: 55px;
+            width: 100%;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgb(130, 106, 251);
+        }
+
+        .form button:hover {
+            background: rgb(88, 56, 250);
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 500px) {
+            .form .column {
+                flex-wrap: wrap;
+            }
+
+            .gender-option {
+                row-gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your HTML content here -->
+    <section class="container">
+        <header>Update Product</header>
+        <form method="post" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data" id="productForm" class="form">
+            {% csrf_token %}
+            <div class="input-box">
+                <label>Product Name</label>
+                <input type="text" id="productName" name="product_name" placeholder="Enter Product Name" value="{{ product.name }}" required />
+            </div>
+
+            <div class="input-box">
+                <!-- <label>Product Description</label>
+                <input type="text" id="productDescription" name="product_description" placeholder="Enter Product Description" value="{{ product.description }}" maxlength="500" required /> -->
+            </div>
+
+            <div class="input-box address">
+                <label>Category</label>
+                <div class="column">
+                    <div class="select-box">
+                        <select name="category" id="productCategory">
+                            <option hidden>Category</option>
+                            {% for category in category %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                            <!-- <option hidden>Category</option>
+                            <option value="1" {% if product.category == 1 %} selected {% endif %}>Toys & Games</option>
+                            <option value="2" {% if product.category == 2 %} selected {% endif %}>Ride-Ons & Cycle</option> -->
+                            <!-- Add similar lines for other category options -->
+                        </select>
+                    </div>
+
+                    <div class="select-box">
+                        <select name="sub_category" id="productSubcategory">
+                            <option hidden>Sub Category</option>
+                            {% for sub in sub %}
+                                <option value="{{ sub.id }}" data-category="{{ sub.category.id }}">{{ sub.name }}</option>
+                            {% endfor %}
+                            <!-- <option value="1" {% if product.subcategory == 1 %} selected {% endif %}>Teddy Bears</option>
+                            <option value="2" {% if product.subcategory == 2 %} selected {% endif %}>Dolls & Playsets</option> -->
+                            <!-- Add similar lines for other sub-category options -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="select-box">
+                        <select name="brand" id="productBrand">
+                            <option hidden>Brand</option>
+                            <option value="1" {% if product.brand == 1 %} selected {% endif %}>Disney</option>
+                            <option value="2" {% if product.brand == 2 %} selected {% endif %}>Lego</option>
+                            <!-- Add similar lines for other brand options -->
+                        </select>
+                    </div>
+
+                    <div class="select-box">
+                        <select name="age" id="age">
+                            <option hidden>Age</option>
+                            <option value="1" {% if product.age == 1 %} selected {% endif %}>3-5 Years</option>
+                            <option value="2" {% if product.age == 2 %} selected {% endif %}>0-18 Months</option>
+                            <!-- Add similar lines for other age options -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    <!-- <label>Material</label>
+                    <input type="text" name="material" placeholder="Material" value="{{ product.material }}" required /> -->
+                </div>
+                <div class="input-box">
+                    <label>Price</label>
+                    <input type="number" name="price" placeholder="Price" min="0.01" step="0.01" value="{{ product.price }}" required />
+                </div>
+            </div>
+
+            <div class="gender-box">
+                <!-- <h3>Gender</h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="check-male" name="gender" value="male" {% if product.gender == 'male' %} checked {% endif %} />
+                        <label for="check-male">Male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-female" name="gender" value="female" {% if product.gender == 'female' %} checked {% endif %} />
+                        <label for="check-female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-other" name="gender" value="unisex" {% if product.gender == 'unisex' %} checked {% endif %} />
+                        <label for="check-other">Unisex</label>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="input-box address">
+                <!-- <label>Seller</label> -->
+                <div class="column">
+                    <!-- <div class="select-box">
+                        <select name="seller">
+                            <option hidden>Select a seller</option>
+                            {% for seller in sellers %}
+                                <option value="{{ seller.id }}" {% if seller.id == product.seller.id %} selected {% endif %}>{{ seller.shop_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div> -->
+
+                    <!-- <label for="stockQuantity">Stock Quantity</label>
+                    <input type="number" id="stockQuantity" name="stock_quantity" value="{{ product.stock_quantity }}" required>  -->
+                </div>
+
+                <!-- <div class="column">
+                    <div class="select-box">
+                        <select name="status">
+                            <option hidden>Status</option>
+                            <option value="Available" {% if product.status == 'Available' %} selected {% endif %}>Available</option>
+                            <option value="Not Available" {% if product.status == 'Not Available' %} selected {% endif %}>Not Available</option>
+                        </select>
+                    </div>
+                </div> -->
+
+            </div>
+
+            <div class="input-box address">
+                <label>Product Image (JPEG, JPG, PNG only)</label>
+                <img src="{{ product.product_image.url }}" alt="{{ product.name }}">
+                <input type="file" id="productImage" name="product_image" accept=".jpeg, .jpg, .png">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" id="editProductButton">Update Product<a href="{% url 'view_product' %}"></a></button>
+            </div>
+        </form>
+    </section>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var categorySelect = document.getElementById("productCategory");
+          var subcategorySelect = document.getElementById("productSubcategory");
+        
+          // Function to update subcategories based on the selected category.
+          function updateSubcategories() {
+            var selectedCategory = categorySelect.value;
+        
+            // Hide all subcategory options.
+            for (var i = 0; i < subcategorySelect.options.length; i++) {
+              subcategorySelect.options[i].style.display = "none";
+            }
+        
+            // Show subcategories that match the selected category.
+            for (var i = 0; i < subcategorySelect.options.length; i++) {
+              var subcategoryOption = subcategorySelect.options[i];
+              if (subcategoryOption.getAttribute("data-category") === selectedCategory || subcategoryOption.getAttribute("data-category") === "") {
+                subcategoryOption.style.display = "block";
+              }
+            }
+          }
+        
+          // Initial update based on the selected category on page load.
+          updateSubcategories();
+        
+          // Add an event listener to update subcategories when the category is changed.
+          categorySelect.addEventListener("change", updateSubcategories);
+        });
+        </script>
+</body>
+</html>
