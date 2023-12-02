@@ -1,0 +1,251 @@
+{% load static %}
+{% include "base.html" %}
+{% block content %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <style>
+        /* Your existing styles */
+        .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-header {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart-item-name {
+        font-weight: bold;
+        margin-right: 10px;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .remove-from-cart-btn,
+    .quantity-btn {
+        background-color: #ff6347;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .remove-from-cart-btn:hover,
+    .quantity-btn:hover {
+        background-color: #e74c3c;
+    }
+
+    .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+    .cart-item-price {
+        font-weight: bold;
+    }
+
+    .continue-shopping-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+    }
+
+    .continue-shopping-link:hover {
+        text-decoration: underline;
+    }
+
+    .checkout-button {
+        display: inline-block;
+        background-color: #28a745; 
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        margin-top: 20px;
+        margin-left: 400px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .checkout-button:hover {
+        background-color: #218838;
+    }
+
+    /* ... (other styles) */
+
+    .continue-shopping-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #3498db;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: 2px solid #3498db;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .continue-shopping-link:hover {
+        background-color: #3498db;
+        color: white;
+        border-color: #3498db;
+        text-decoration: none;
+    }
+
+    /* ... (other styles) */
+
+    /* try */
+    /* ... (other styles) */
+
+    .product-container {
+        background-color: #dc7b7b;
+        border: 1px solid #cf7f7f;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product-container:hover {
+        transform: scale(1.05);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333333;
+    }
+
+    .total-price {
+        font-weight: bold;
+        font-size: 1.25rem;
+        color: #e44d26;
+    }
+
+    .cart-item-quantity {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .quantity-btn {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-right: 5px;
+    }
+
+    .quantity-btn:hover {
+        background-color: #2980b9;
+    }
+
+    .product-container {
+    max-width: 800px; /* Set your desired medium width */
+    margin: 0 auto;  /* Center the container */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    /* ... (other styles) */
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 text-align="center">My Cart</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="product-details-container">
+                    {% for item in cart_items %}
+                        <div class="product-container card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ item.product.product_image.url }}" alt="{{ item.product.name }}" style="max-width: 250px; height:210px;border: 2px solid #ddd;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.product.name }}</h5>
+                                        <p class="total-price" id="total-price-{{ item.product.id }}">Total: Rs.{{ item.total_price  }}</p>
+                                        <div class="cart-item-quantity">
+                                            <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="quantity-btn increase-quantity" type="submit">+</button>
+                                            </form>
+                                            <span class="item-quantity">{{ item.quantity }}</span>
+                                            <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="quantity-btn decrease-quantity" type="submit">-</button>
+                                            </form>
+
+                                            <form method="post" action="{% url 'remove-from-cart' item.product.id  %}">
+                                                {% csrf_token %}
+                                                <button type="remove-from-cart-btn" class="btn btn-danger">Remove</button> 
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="price-details-container">
+                    <div class="order-summary">
+                        <h3>Price Details</h3>
+                        <p class="total-price-data">Total amount : Rs.<span id="total-price"> {{total_amount}}</span></p>
+                        <a class="continue-shopping-link"  href="{% url 'product_list' %}">Continue Shopping</a>
+                        <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>
+{% endblock %}
