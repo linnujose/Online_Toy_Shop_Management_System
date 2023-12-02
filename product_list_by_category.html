@@ -1,0 +1,337 @@
+{% include 'base.html' %}
+{% load static %}
+
+<!-- {% block title %}Product List{% endblock %} -->
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #cf3434;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    background-color: rgb(242, 235, 235);
+    
+}
+
+.product-card {
+    background-color: rgb(242, 241, 241);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details h2 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Add more styling as needed */
+
+
+/* Add this CSS code to your existing styles or product_list.css file */
+
+/* Button container styling */
+.buttons {
+    display: flex; /* Use flexbox to horizontally align buttons */
+}
+
+/* Add to Cart button styling */
+.add-to-cart-btn {
+    background-color: #c4a90f; /* Yellow background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding around the button text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    margin-right: 10px; /* Space between buttons */
+}
+
+/* Add to Wishlist button styling */
+.add-to-wishlist-btn {
+    background-color: #1c8000; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding around the button text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+}
+
+/* Hover effect for Add to Cart button */
+.add-to-cart-btn:hover {
+    background-color: #dec45d; /* Darker yellow on hover */
+}
+
+/* Hover effect for Add to Wishlist button */
+.add-to-wishlist-btn:hover {
+    background-color: rgb(126, 217, 56); /* Darker green on hover */
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        align-items: center; /* Center buttons on small screens */
+    }
+
+    .add-to-cart-btn,
+    .add-to-wishlist-btn {
+        margin-bottom: 10px; /* Space between buttons on small screens */
+        margin-right: 0; /* Remove right margin on small screens */
+    }
+}
+
+/* neww */
+
+/* Your additional styles go here */
+        /* Add any additional styles for the sidebar here */
+        .sidebar {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h5 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 2px;
+            color: #343a40;
+        }
+
+        .sidebar form {
+            margin-bottom: 20px;
+        }
+
+        .sidebar label {
+            color: #343a40;
+        }
+
+        .sidebar .custom-checkbox {
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- <header>
+        <h1>MerryKids</h1>
+        
+    </header> -->
+    
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                <!-- Price Start -->
+                <div class="sidebar">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
+                    <form>
+                        <!-- Your existing price filter checkboxes go here -->
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="price-all">All Price</label>
+                            <!-- <span class="badge border font-weight-normal">1000</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-1">
+                            <label class="custom-control-label" for="price-1">$0 - $100</label>
+                            <!-- <span class="badge border font-weight-normal">150</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2">$100 - $200</label>
+                            <!-- <span class="badge border font-weight-normal">295</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3">$200 - $300</label>
+                            <!-- <span class="badge border font-weight-normal">246</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-4">$300 - $400</label>
+                            <!-- <span class="badge border font-weight-normal">145</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="checkbox" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">$400 - $500</label>
+                            <!-- <span class="badge border font-weight-normal">168</span> -->
+                        </div>
+
+                    </form>
+                </div>
+                <!-- Price End -->
+
+                <!-- Color Start -->
+                <div class="sidebar">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by color</span></h5>
+                    <form>
+                        <!-- Your existing color filter checkboxes go here -->
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="color-all">
+                            <label class="custom-control-label" for="price-all">All Age</label>
+                            <!-- <span class="badge border font-weight-normal">1000</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="color-1">
+                            <label class="custom-control-label" for="color-1"> 18 to 36 Months</label>
+                            <!-- <span class="badge border font-weight-normal">150</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="color-2">
+                            <label class="custom-control-label" for="color-2">3 to 5 Years</label>
+                            <!-- <span class="badge border font-weight-normal">295</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="color-3">
+                            <label class="custom-control-label" for="color-3">5 to 7 Years</label>
+                            <!-- <span class="badge border font-weight-normal">246</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="color-4">
+                            <label class="custom-control-label" for="color-4">7 to 9 Years</label>
+                            <!-- <span class="badge border font-weight-normal">145</span> -->
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="checkbox" class="custom-control-input" id="color-5">
+                            <label class="custom-control-label" for="color-5">9 to 12 Years</label>
+                            <!-- <span class="badge border font-weight-normal">168</span> -->
+                        </div>
+
+                    </form>
+                </div>
+                <!-- Color End -->
+
+                <!-- Size Start -->
+                <div class="sidebar">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Categories</span></h5>
+                    <form>
+                        <!-- Display categories dropdown -->
+                        <div class="form-group">
+                            <label for="category">Select Category:</label>
+                            <select class="form-control" id="category" name="category">
+                                {% for category in categories %}
+                                    <option value="{% url 'product_list_by_category'  category.id }">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Subcategory Filter -->
+                <div class="sidebar">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by subcategory</span></h5>
+                    <form>
+                        {% for subcategory in subcategories %}
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" id="subcategory-{{ subcategory.id }}" name="subcategories" value="{{ subcategory.id }}">
+                                <label class="custom-control-label" for="subcategory-{{ subcategory.id }}">{{ subcategory.name }}</label>
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+
+                <!-- Size End -->
+            </div>
+            <!-- Shop Sidebar End -->
+
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-8">
+                <div class="product-container">
+                    {% for product in products %}
+                        <div class="product-card">
+                            <a href="{% url 'product_details' product.id %}">
+                                <img src="{{ product.product_image.url }}" alt="{{ product.name }}">
+                            </a>
+                            <div class="product-details">
+                                <h2>{{ product.name }}</h2>
+                                <p>Price: Rs.{{ product.price }}</p>
+                                <p>Brand: {{ product.brand }}</p>
+                                <p>Age: {{ product.age }}</p>
+                                <p>Status: 
+                                    {% if product.status == "Available" %}
+                                        <span class="active-status">Available</span>
+                                    {% else %}
+                                        <span class="inactive-status">Not Available</span>
+                                    {% endif %}
+                                </p>
+                                <p>stock_quantity: {{ product.quantity }}</p>
+
+                                <div class="buttons">
+                                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                                    </form>
+
+                                    <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="add-to-wishlist-btn">Add to Wishlist</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="no-products">No products available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+
+
+    
+
+    
+    
+    
+
+</body>
+</html>
+{% endblock %}
+
