@@ -1,0 +1,368 @@
+{% include 'navbar.html' %}
+{% load static %}
+
+<!-- {% block title %}Product List{% endblock %} -->
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dashboard</title>
+
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 0.5em;
+        }
+
+        section {
+
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .sidebar {
+            
+            background-color: white;
+            color: white;
+            
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+
+            max-width: 800px;
+            margin: 0px auto;
+            margin-left: 2px;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            padding: 110px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            max-width: 600px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 1050px;
+        }
+
+        h2 {
+            color: #787171;
+            font-size: 18px;
+        }
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0080ff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add styles for icons */
+        i {
+            margin-right: 10px;
+            color: #007BFF;
+        }
+
+
+
+        /* Add these styles for the new elements */
+        label[for="profileImage"],
+        label[for="currentPassword"],
+        label[for="newPassword"],
+        label[for="confirmPassword"],
+        label[for="username"],
+        label[for="email"] {
+            margin-top: 16px;
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 16px;
+        }
+
+        img {
+            margin-bottom: 16px;
+        }
+
+        /* Styles for the change password section */
+        h2 i.fa-key {
+            color: #007BFF;
+            margin-right: 10px;
+        }
+
+        /* Styles for the account information section */
+        h2 i.fa-user {
+            color: #007BFF;
+            margin-right: 10px;
+        }
+
+  /* Add other styles as needed */
+
+
+        /* Add your styles here */
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <header>
+        <h1>Your Dashboard</h1>
+    </header> -->
+
+    <!-- <nav>
+        <a href="#">MY ORDERS</a>
+        <a href="#">ACCOUNT SETTINGS</a>
+        <a href="#">PAYMENTS</a>
+        <a href="#">MY STUFF</a>
+        <a href="#">Logout</a>
+    </nav> -->
+
+    <section>
+        <div class="sidebar">
+            <!-- <h2><i class="fas fa-user"></i>Profile Information</h2> -->
+            <!-- Include the user profile content here -->
+            <!-- You can use an iframe or other method to include the content -->
+            <h2><i class="fas fa-shopping-cart"></i><a href="#">MY ORDERS</a></h2>
+        <!-- Add content for My Orders section -->
+
+            <h2><i class="fas fa-cogs"></i>ACCOUNT SETTINGS</h2>
+            <ul>
+                <li><a href="{% url 'account' %}">Profile Information</a></li>
+                <li><a href="#">Manage Addresses</a></li>
+                <li><a href="#">PAN Card Information</a></li>
+            </ul>
+
+            <h2><i class="fas fa-credit-card"></i>PAYMENTS</h2>
+            <ul>
+                <li><a href="#">Gift Cards ₹0</a></li>
+                <li><a href="#">Saved UPI</a></li>
+                <li><a href="#">Saved Cards</a></li>
+            </ul>
+
+            <h2><i class="fas fa-shopping-bag"></i>MY STUFF</h2>
+            <ul>
+                <li><a href="#">My Coupons</a></li>
+                <li><a href="#">My Reviews & Ratings</a></li>
+                <li><a href="#">All Notifications</a></li>
+                <li><a href="#">My Wishlist</a></li>
+            </ul>
+                <a href="{% url 'account' %}">View Profile</a>
+        </div>
+
+        <div class="main-content">
+            <h2><i class="fas fa-user"></i>Profile Information</h2>
+            
+            <form method="post" action="{% url 'save_profile' %}">
+                {% csrf_token %}
+
+
+                <!-- Add this section inside the form in your account.html file -->
+                <label for="profileImage">Profile Image</label>
+                <input type="file" id="profileImage" name="profileImage">
+                <!-- Display the current profile image (replace 'path_to_image' with the actual path or URL) -->
+                <img src="{% static 'path_to_image' %}" alt="Profile Image" style="max-width: 100px;">
+
+                <!-- You might need to handle file uploads in your views and update the user's profile image accordingly -->
+
+
+
+                <!-- <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" value="" disabled>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" value="" disabled> -->
+
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" disabled>
+
+
+                
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" disabled>
+
+
+                <label for="gender">Your Gender</label>
+                <select id="gender" name="gender" value="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" id="mobileNumber" name="mobileNumber" value="{{ user.profileuser.phone_number }}" required>
+
+
+                <label for="pin_code">Pin Code</label>
+                <input type="text" id="pin_code" name="pin_code" value="{{ user_profile.pin_code }}" oninput="validatePinCode()" required>
+
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" value="{{ user_profile.city }}" oninput="validateCity()" required>
+                <div class="error-message" id="city-error" ></div>
+                
+
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ user_profile.state }}" oninput="validateState()" required>
+
+                <!-- Add this section inside the form in your account.html file -->
+                <h2><i class="fas fa-key"></i>Change Password</h2>
+
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="currentPassword">
+
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword">
+
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+
+                <button type="button" onclick="changePassword()">Change Password</button>
+
+                
+
+                <button type="button" onclick="enableEdit()">Edit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Include Font Awesome JS (for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+    <script>
+        function enableEdit() {
+            // Enable editing by removing the 'disabled' attribute
+            // document.getElementById('firstName').removeAttribute('disabled');
+            // document.getElementById('lastName').removeAttribute('disabled');
+            document.getElementById('gender').removeAttribute('disabled');
+            
+            document.getElementById('mobileNumber').removeAttribute('disabled');
+            document.getElementById('pin_code').removeAttribute('disabled');
+            document.getElementById('city').removeAttribute('disabled');
+            document.getElementById('state').removeAttribute('disabled');
+
+            alert('successfuly updated');
+        }
+
+        function changePassword() {
+                        // Add logic to handle password change
+                        // You might need to send an AJAX request to your server to handle password change
+                        alert('Password change logic goes here');
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+        // Add event listeners for real-time validation
+        document.getElementById('pin_code').addEventListener('input', validatePinCode);
+        document.getElementById('city').addEventListener('input', validateCity);
+        document.getElementById('state').addEventListener('input', validateState);
+
+    });
+
+
+    function validateCityName() {
+            var cityNameInput = document.getElementById("cityName");
+            var cityName = cityNameInput.value;
+            var cityNameError = document.getElementById("cityNameError");
+
+            // Validate city name
+            var lettersOnlyRegex = /^[a-zA-Z]+$/;
+
+            if (!lettersOnlyRegex.test(cityName)) {
+                cityNameError.textContent = "City name should contain only letters.";
+            } else if (cityName.length > 50) { // Change the maximum length as needed
+                cityNameError.textContent = "City name should not exceed 50 characters.";
+            } else {
+                cityNameError.textContent = "";
+            }
+        }
+
+        // Add an event listener to call the validation function on input
+        document.getElementById("cityName").addEventListener("input", validateCityName);
+
+        
+    </script>
+
+</body>
+</html>
+{% endblock %}
