@@ -31,6 +31,12 @@ from .models import Product
 from django.core.exceptions import ValidationError
 
 from django.http import HttpResponseRedirect
+
+
+
+
+
+
 # from .forms import ProductForm
 # from .forms import ProductForm  # Create this form if you want to use Django forms for validation and handling
 
@@ -288,6 +294,7 @@ from .models import Product, CustomUser
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
+@never_cache
 @login_required
 def add_product(request):
     if request.method == 'POST':
@@ -334,182 +341,55 @@ def add_product(request):
     return render(request, 'add_product.html', context)
 
 
-# def add_product(request):
-#     sellers = CustomUser.objects.filter(user_types=4)  # Assuming you have a Seller model
-
-#     if request.method == 'POST':
-#         product_name = request.POST.get('product_name')
-#         product_description = request.POST.get('product_description')
-#         category_id = request.POST.get('category_id')  # Update the field name to match your HTML form
-#         sub_category = request.POST.get('sub_category')
-#         material = request.POST.get('material')
-#         price = request.POST.get('price')
-#         gender = request.POST.get('gender')
-#         seller_id = request.POST.get('seller')
-#         stock_quantity = request.POST.get('stock_quantity')
-#         status = request.POST.get('status')
-#         
-#         brand = request.POST.get('brand')  # New field
-#         age = request.POST.get('age')  # New field
-#         product_image = request.FILES.get('product_image')  # New field
-
-#         seller = CustomUser.objects.get(pk=seller_id, user_types=4)
-
-#         category = Category.objects.get(pk=category_id)
-#         subcategory = Subcategory.objects.get(name=sub_category)
-
-#         product = Product(
-#             product_name=product_name,
-#             product_description=product_description,
-#             category=category,
-#             sub_category=subcategory,
-#             material=material,
-#             price=price,
-#             gender=gender,
-#             seller=seller,
-#             stock_quantity=stock_quantity,
-#             status=status,
-#             discount=discount,
-#             brand=brand,  # New field
-#             age=age,  # New field
-#             product_image=product_image  # New field
-#         )
-#         product.save()
-#         return redirect('sellerhome')
-
-#     return render(request, 'add_product.html', {'sellers': sellers})
-
+# 
 # ...
 
-# def add_product(request):
-#     sellers = CustomUser.objects.filter(user_types=4)  # Assuming you have a Seller model
-#     error_message = None
-
-#     if request.method == 'POST':
-#         product_name = request.POST.get('product_name')
-#         product_description = request.POST.get('product_description')
-#         category_id = request.POST.get('category_id')  # Update the field name to match your HTML form
-#         sub_category = request.POST.get('sub_category')
-#         material = request.POST.get('material')
-#         price = request.POST.get('price')
-#         gender = request.POST.get('gender')
-#         seller_id = request.POST.get('seller')
-#         stock_quantity = request.POST.get('stock_quantity')
-#         status = request.POST.get('status')
-#         discount = request.POST.get('discount')
-#         brand = request.POST.get('brand')  # New field
-#         age = request.POST.get('age')  # New field
-#         product_image = request.FILES.get('product_image')  # New field
-
-#         try:
-#             seller = CustomUser.objects.get(pk=seller_id, user_types=4)
-#         except CustomUser.DoesNotExist:
-#             seller = None
-
-#         if seller:
-#             try:
-#                 category = Category.objects.get(pk=category_id)  # Retrieve the Category instance based on the category_id
-#                 product = Product(
-#                     product_name=product_name,
-#                     product_description=product_description,
-#                     category=category,
-#                     sub_category=sub_category,
-#                     material=material,
-#                     price=price,
-#                     gender=gender,
-#                     seller=seller,
-#                     stock_quantity=stock_quantity,
-#                     status=status,
-#                     discount=discount,
-#                     brand=brand,  # New field
-#                     age=age,  # New field
-#                     product_image=product_image  # New field
-#                 )
-#                 product.full_clean()  # Validate the model fields
-#                 product.save()
-#                 return redirect('sellerhome')  # Replace 'success' with the URL where you want to redirect after a successful form submission
-
-#             except Category.DoesNotExist:
-#                 error_message = "Invalid category selection."
-
-#             except ValidationError as e:
-#                 error_message = str(e)
-#         else:
-#             error_message = "Invalid seller."
-
-#     return render(request, 'add_product.html', {'sellers': sellers, 'error_message': error_message})
 
 
     
-# def add_product(request):
-#     sellers = CustomUser.objects.filter(user_types=4)  # Assuming you have a Seller model
-    
-#     if request.method == 'POST':
-#         product_name = request.POST.get('product_name')
-#         product_description = request.POST.get('product_description')
-#         category_id = request.POST.get('category')
-        
-#         sub_category = request.POST.get('sub_category')
-#         material = request.POST.get('material')
-#         price = request.POST.get('price')
-#         gender = request.POST.get('gender')
-#         seller_id = request.POST.get('seller')
-#         stock_quantity = request.POST.get('stock_quantity')
-#         status = request.POST.get('status')
-#         discount = request.POST.get('discount')
-#         brand = request.POST.get('brand')  # New field
-#         age = request.POST.get('age')  # New field
-#         product_image = request.FILES.get('product_image')  # New field
-
-#         try:
-#             seller = CustomUser.objects.get(pk=seller_id, user_types=4)
-#         except CustomUser.DoesNotExist:
-#             seller = None
-
-#         if seller:
-#             try:
-#                 category = Category.objects.get(pk=category_id)  # Retrieve the Category instance based on the category_id
-#                 product = Product(
-#                     product_name=product_name,
-#                     product_description=product_description,
-#                     category=category,
-#                     sub_category=sub_category,
-#                     material=material,
-#                     price=price,
-#                     gender=gender,
-#                     seller=seller,
-#                     stock_quantity=stock_quantity,
-#                     status=status,
-#                     discount=discount,
-#                     brand=brand,  # New field
-#                     age=age,  # New field
-#                     product_image=product_image  # New field
-#                 )
-#                 product.full_clean()  # Validate the model fields
-#                 product.save()
-#                 return redirect('sellerhome')  # Replace 'success' with the URL where you want to redirect after a successful form submission
-
-#             except Category.DoesNotExist:
-#                 error_message = "Invalid category."
-
-                
-#             except ValidationError as e:
-#                 error_message = str(e)
-#         else:
-#             error_message = "Invalid seller."
-
-#     else:
-#         error_message = None
-
-#     return render(request, 'add_product.html', {'sellers': sellers, 'error_message': error_message})
 
 
 
 
 
-def product_list(request):
+# def product_list(request):
+#     products = Product.objects.all()
+#     return render(request, 'product_list.html', {'products': products})
+
+# new
+# from django.shortcuts import render, get_object_or_404
+# from .models import Product, Category, Subcategory
+
+def product_list(request, category_slug=None, subcategory_slug=None):
+    # Fetch all products
     products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products})
+
+    # Fetch all categories and subcategories
+    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
+
+    # Filtering by category
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+
+    # Filtering by subcategory
+    if subcategory_slug:
+        subcategory = get_object_or_404(Subcategory, slug=subcategory_slug)
+        products = products.filter(sub_category=subcategory)
+
+    return render(request, 'product_list.html', {'products': products, 'categories': categories, 'subcategories': subcategories})
+
+from django.shortcuts import render, get_object_or_404
+from .models import Category, Product
+
+def product_list_by_category(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    products = Product.objects.filter(category=category)
+    return render(request, 'product_list_by_category.html', {'category': category, 'products': products})
+
+
+
 
 #seller editing products
 from django.shortcuts import render, get_object_or_404, redirect,reverse
@@ -588,14 +468,46 @@ def add_to_wishlist(request, product_id):
     # Implement your wishlist functionality here (e.g., store in session or a database table)
     return redirect('wishlist')
 def cart(request):
-    # Logic to display cart items, if any
-    return render(request, 'cart.html')
-@login_required
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    # Retrieve cart items associated with the user's cart
+    cart_items = CartItem.objects.filter(cart=cart)
+    for item in cart_items:
+        item.total_price = item.product.price * item.quantity
+    
+    total_amount = sum(item.total_price for item in cart_items)
+
+    return render(request, 'cart.html', {'cart_items': cart_items,'total_amount': total_amount})
+    
+# @login_required
+# def add_to_wishlist(request, product_id):
+#     product = get_object_or_404(Product, id=product_id)
+#     # Get or create the user's wishlist
+#     wishlist, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
+#     return HttpResponseRedirect(reverse('wishlist'))
+
+
+# try
+# views.py
+
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from .models import Product, WishlistItem
+
+@csrf_exempt  # Add this decorator to disable CSRF protection for simplicity (you might want to handle CSRF properly in production)
 def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    # Get or create the user's wishlist
-    wishlist, created = WishlistItem.objects.get_or_create(user=request.user, product=product)
-    return HttpResponseRedirect(reverse('wishlist'))
+    user = request.user
+
+    # Check if the product is already in the wishlist
+    if WishlistItem.objects.filter(user=user, product=product).exists():
+        return JsonResponse({'message': 'This product is already added to your wishlist.'})
+    
+    # If not, add the product to the wishlist
+    WishlistItem.objects.create(user=user, product=product)
+    return JsonResponse({'message': 'Product added to your wishlist successfully.'})
+
 
 def wishlist(request):
     # Get the wishlist items for the currently logged-in user
@@ -609,16 +521,360 @@ def remove_from_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     # Remove the product from the user's wishlist
     WishlistItem.objects.filter(user=request.user, product=product).delete()
+    # Return a JSON response with a success message
+    # return JsonResponse({'message': 'Product removed from your wishlist successfully.'})
+    # return JsonResponse({'success': True, 'message': 'Product removed from your wishlist successfully.'})
+
     return redirect('wishlist')
 
 def product_details(request, product_id):
     # Get the product by its ID, or return a 404 error if not found
     product = get_object_or_404(Product, id=product_id)
 
+    if request.method == 'POST':
+        # Your logic to handle Add to Cart or Add to Wishlist actions
+        # ...
+
+        # Get the message you want to display in the popup
+        popup_message = "Product added to cart successfully."  # You can customize this message
+
+        # Pass the popup message to the template
+        return render(request, 'product_details.html', {'product': product, 'popup_message': popup_message})
+
     return render(request, 'product_details.html', {'product': product})
 
 
 
+def userprofile(request):
+    return render(request, 'userprofile.html')
+
+def changepassword(request):
+    return render(request, 'changepassword.html')
+
+
+def shop(request):
+    return render(request, 'shop.html')
+
+def base(request):
+    return render(request, 'base.html')
+
+def navbar(request):
+    return render(request, 'navbar.html')
+
+def account(request):
+    return render(request, 'account.html')
+    
+
+#add to cart
+from .models import Product, Cart, CartItem
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
+@login_required(login_url='login')
+def add_to_cart(request, id):
+    product = Product.objects.get(pk=id)  # Use correct model name 'Product'
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+    # Check if the product is already in the cart
+    if product_already_added_to_cart:
+        return JsonResponse({'message': 'This product is already added to your cart.'})
+    else:
+        return JsonResponse({'message': 'Product added to your cart successfully.'})
+
+
+    
+    if not item_created:
+        cart_item.quantity += 1
+        cart_item.save()
+    
+    return redirect('cart')
+
+# Replace this function with your actual logic to check if the product is in the cart
+def product_already_added_to_cart(request, product_id):
+    # Your logic to check if the product is in the cart goes here
+    # Return True if the product is in the cart, else return False
+    pass
+
+
+#remove from cart
+@login_required(login_url='login')
+def remove_from_cart(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    cart = Cart.objects.get(user=request.user)
+    try:
+        cart_item = cart.cartitem_set.get(product=product)
+        if cart_item.quantity >= 1:
+             cart_item.delete()
+             messages.success(request, 'Product removed from cart successfully.')
+    except CartItem.DoesNotExist:
+        pass
+    
+    return redirect('cart')
+
+#view cart
+# @login_required(login_url='login')
+# def view_cart(request):
+#     cart = request.user.cart
+#     cart_items = CartItem.objects.filter(cart=cart)
+#     return render(request, 'cart.html', {'cart_items': cart_items})
+
+@login_required(login_url='login')
+def view_cart(request):
+    # Get or create the user's cart
+    cart, created = Cart1.objects.get_or_create(user=request.user)
+
+    # Retrieve cart items associated with the user's cart
+    cart_items = CartItem1.objects.filter(cart=cart)
+    for item in cart_items:
+        item.total_price = item.product.price * item.quantity
+    
+    total_amount = sum(item.total_price for item in cart_items)
+
+    return render(request, 'cart.html', {'cart_items': cart_items,'total_amount': total_amount})
+
+
+#increase the cart and decrease the cart
+@login_required(login_url='login')
+def increase_cart_item(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    cart = request.user.cart
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+    cart_item.quantity += 1
+    cart_item.save()
+
+    return redirect('cart')
+
+@login_required(login_url='login')
+def decrease_cart_item(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    cart = request.user.cart
+    cart_item = cart.cartitem_set.get(product=product)
+
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete()
+
+    return redirect('cart')
+
+
+#fetch_cart_count and get_cart_count
+@login_required(login_url='login')
+def fetch_cart_count(request):
+    cart_count = 0
+    if request.user.is_authenticated:
+        cart = request.user.cart
+        cart_count = CartItem.objects.filter(cart=cart).count()
+    return JsonResponse({'cart_count': cart_count})
+
+def get_cart_count(request):
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(cart=request.user.cart)
+        cart_count = cart_items.count()
+    else:
+        cart_count = 0
+    return cart_count
+
+
+
+# user_profile
+def save_profile(request):
+    return render(request, 'account.html')
+
+
+
+#payment
+# from .models import Profile, Product, Cart, CartItem, Order, OrderItem
+from .models import  Product, Cart, CartItem, Order, OrderItem
+from django.http import JsonResponse
+from django.conf import settings
+import razorpay
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def create_order(request):
+    if request.method == 'POST':
+        user = request.user
+        cart = user.cart
+
+        cart_items = CartItem.objects.filter(cart=cart)
+        total_amount = sum(item.product.price * item.quantity for item in cart_items)
+
+        try:
+            order = Order.objects.create(user=user, total_amount=total_amount)
+            for cart_item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    item_total=cart_item.product.price * cart_item.quantity
+                )
+
+            client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+            payment_data = {
+                'amount': int(total_amount * 100),
+                'currency': 'INR',
+                'receipt': f'order_{order.id}',
+                'payment_capture': '1'
+            }
+            # orderData = client.order.create(data=payment_data)
+            orderData = client.order.create(data=payment_data)
+            print(orderData)  # Add this line to log the order creation response
+
+            order.payment_id = orderData['id']
+            order.save()
+
+            return JsonResponse({'order_id': orderData['id']})
+        
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'error': 'An error occurred. Please try again.'}, status=500)
+
+#checkout
+def checkout(request):
+    cart_items = CartItem.objects.filter(cart=request.user.cart)
+    total_amount = sum(item.product.price * item.quantity for item in cart_items)
+
+    cart_count = get_cart_count(request)
+    email = request.user.email
+    # full_name = request.user.profile.full_name
+
+    context = {
+        'cart_count': cart_count,
+        'cart_items': cart_items,
+        'total_amount': total_amount,
+        'email':email,
+        # 'full_name': full_name
+    }
+    return render(request, 'checkout.html', context)
+
+
+
+@csrf_exempt
+def handle_payment(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        razorpay_order_id = data.get('order_id')
+        payment_id = data.get('payment_id')
+
+        try:
+            order = Order.objects.get(payment_id=razorpay_order_id)
+
+            client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+            payment = client.payment.fetch(payment_id)
+
+            if payment['status'] == 'captured':
+                order.payment_status = True
+                order.save()
+                # user = request.user
+                # user.cart.cartitem_set.all().delete()
+                return JsonResponse({'message': 'Payment successful'})
+            else:
+                return JsonResponse({'message': 'Payment failed'})
+
+        except Order.DoesNotExist:
+            return JsonResponse({'message': 'Invalid Order ID'})
+        except Exception as e:
+
+            print(str(e))
+            return JsonResponse({'message': 'Server error, please try again later.'})
+
+
+# filter by category
+# views.py
+
+from django.shortcuts import render
+from django.views.generic import ListView
+from .models import Category, Product
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'your_app/product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        subcategory_slug = self.kwargs.get('subcategory_slug')
+        
+        if subcategory_slug:
+            subcategory = Subcategory.objects.get(slug=subcategory_slug)
+            category_name = f"{subcategory.category.name} - {subcategory.name}"
+            return subcategory.get_related_products(), category_name
+        elif category_slug:
+            category = Category.objects.get(slug=category_slug)
+            return category.get_related_products(), category.name
+        else:
+            return Product.objects.all(), "All Products"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['category_name'] = self.get_queryset()[1]  # Add category name to the context
+        return context
+
+# filter
+from django.shortcuts import render
+from .models import Product, Category, Subcategory, Brand, Age
+
+def product_list(request):
+    # Get all products
+    products = Product.objects.all()
+
+    # Get filter parameters from the request
+    category_id = request.GET.get('category')
+    subcategory_id = request.GET.get('subcategory')
+    brand_id = request.GET.get('brand')
+    age_id = request.GET.get('age')
+
+    # Filter products based on parameters
+    if category_id:
+        filtered_category = Category.objects.get(id=category_id)
+        products = products.filter(category_id=category_id)
+    else:
+        filtered_category = None
+
+    if subcategory_id:
+        products = products.filter(sub_category_id=subcategory_id)
+    if brand_id:
+        products = products.filter(brand_id=brand_id)
+    if age_id:
+        products = products.filter(age_id=age_id)
+
+    # Retrieve all categories, subcategories, brands, and ages for the filter form
+    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
+    brands = Brand.objects.all()
+    ages = Age.objects.all()
+
+    context = {
+        'products': products,
+        'categories': categories,
+        'subcategories': subcategories,
+        'brands': brands,
+        'ages': ages,
+        'filtered_category': filtered_category,
+        'filtered_products': products,
+    }
+
+    return render(request, 'product_list.html', context)
+
+
+    #billinvoice
+    # def bill_invoice(request):
+    # Fetch the latest order for the logged-in user (or implement your logic)
+        # order = Order.objects.filter(user=request.user).latest('created_at')
+        # return render(request, 'billinvoice.html', {'order': order})
+        
+
+def bill_invoice(request):
+# Fetch the latest order for the logged-in user (or implement your logic)
+    order = Order.objects.filter(user=request.user).latest('created_at')
+    return render(request, 'billinvoice.html', {'order': order})
 
 
 
