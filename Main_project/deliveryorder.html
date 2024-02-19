@@ -1,0 +1,192 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Order</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        * Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            font-size: 20px;
+            padding: 15px 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .media img {
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            max-width: 100px;
+        }
+        .media-body {
+            color: #343a40;
+        }
+        .order-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .order-info p {
+            margin-bottom: 5px;
+        }
+        .delivery-info {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .delivery-info h5 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .delivery-info p {
+            margin-bottom: 10px;
+        }
+
+
+
+        /* Back Button */
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+         /* Custom CSS */
+         body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            font-size: 20px;
+            padding: 15px 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .media img {
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            max-width: 100px;
+        }
+        .media-body {
+            color: #343a40;
+        }
+        .order-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .order-item img {
+            margin-right: 20px;
+        }
+        .order-info {
+            flex: 1;
+        }
+        /* Back Button */
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h5 class="mb-0">Order Details</h5>
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Order details -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Order Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Loop through order items -->
+                        {% for item in order_items %}
+                        <div class="media mb-3">
+                            <!-- <img src="{{ item.product.image.url }}" class="mr-3" alt="{{ item.product.name }}" style="max-width: 100px;"> -->
+                            <div class="media-body">
+                                <h5 class="mt-0">{{ item.product.name }}</h5>
+                                <!-- <p>{{ item.product.description }}</p> -->
+                                <p>Quantity: {{ item.quantity }}</p>
+                                <p>Price: {{ item.product.price }}</p>
+                                <a href="" class="btn btn-success">Verify Order</a>
+                                <!-- <p>Total: {{ item.item_total }}</p> -->
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- Delivery details -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Delivery Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Display delivery information -->
+                        <p><strong>Delivery Address:</strong></p>
+                        <p>{{ delivery_address }}</p>
+                        <p><strong>Delivery Date:</strong></p>
+                        <p>{{ delivery_date }}</p>
+                        <!-- Add more delivery details as needed -->
+                    </div>
+                </div>
+                <a href="{% url 'deliveryhome' %}" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
