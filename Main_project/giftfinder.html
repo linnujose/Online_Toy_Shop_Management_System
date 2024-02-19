@@ -1,0 +1,848 @@
+{% include 'base.html' %}
+{% load static %}
+
+<!-- {% block title %}Product List{% endblock %} -->
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #cf3434;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    background-color: rgb(242, 235, 235);
+    
+}
+
+.product-card {
+    background-color: rgb(242, 241, 241);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details h2 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.no-products {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Add more styling as needed */
+
+
+/* Add this CSS code to your existing styles or product_list.css file */
+
+/* Button container styling */
+.buttons {
+    display: flex; /* Use flexbox to horizontally align buttons */
+}
+
+/* Add to Cart button styling */
+.add-to-cart-btn {
+    background-color: #c4a90f; /* Yellow background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding around the button text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    margin-right: 10px; /* Space between buttons */
+}
+
+/* Add to Wishlist button styling */
+.add-to-wishlist-btn {
+    background-color: #1c8000; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Padding around the button text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+}
+
+/* Hover effect for Add to Cart button */
+.add-to-cart-btn:hover {
+    background-color: #dec45d; /* Darker yellow on hover */
+}
+
+/* Hover effect for Add to Wishlist button */
+.add-to-wishlist-btn:hover {
+    background-color: rgb(126, 217, 56); /* Darker green on hover */
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        align-items: center; /* Center buttons on small screens */
+    }
+
+    .add-to-cart-btn,
+    .add-to-wishlist-btn {
+        margin-bottom: 10px; /* Space between buttons on small screens */
+        margin-right: 0; /* Remove right margin on small screens */
+    }
+}
+
+/* neww */
+
+/* Your additional styles go here */
+        /* Add any additional styles for the sidebar here */
+        .sidebar {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h5 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 2px;
+            color: #343a40;
+        }
+
+        .sidebar form {
+            margin-bottom: 20px;
+        }
+
+        .sidebar label {
+            color: #343a40;
+        }
+
+        .sidebar .custom-checkbox {
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+/* Popup message styling */
+.popup-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+/* Message box styling */
+.message-box {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Success message styling */
+.success .message-box {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Error message styling */
+.error .message-box {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Show animation for the popup */
+.popup-message.show {
+    display: block;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+/* Keyframes for fadeInOut animation */
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    20%, 80% {
+        opacity: 1;
+    }
+}
+
+
+/* my new */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.container-fluid {
+    margin-top: 20px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Filter Button */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Product Card Styles */
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-details h2 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #343a40;
+}
+
+.product-details p {
+    color: #6c757d;
+}
+
+/* Buttons in Product Card */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.add-to-cart-btn,
+.add-to-wishlist-btn {
+    background-color: #28a745;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-to-wishlist-btn {
+    background-color: #ffc107;
+}
+
+.add-to-cart-btn:hover,
+.add-to-wishlist-btn:hover {
+    background-color: #218838;
+}
+
+/* No Products Message */
+.no-products {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    color: #dc3545;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .sidebar,
+    .product-card {
+        width: 100%;
+    }
+}
+
+
+
+/* Updated Sidebar Styles */
+.sidebar {
+    background-color: #f2ecec;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Select Dropdown Styles */
+.form-control {
+    background-color: #495057;
+    color: #ffffff;
+    border: 1px solid #495057;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Filter Button */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Checkbox Styles */
+.form-check-input {
+    background-color: #343a40;
+    border: 1px solid #6c757d;
+    border-radius: 3px;
+}
+
+.form-check-label {
+    color: #ffffff;
+}
+
+/* Badge Styles */
+.badge {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- <header>
+        <h1>MerryKids</h1>
+        
+    </header> -->
+    
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-4">
+                <!-- Price Start -->
+                <div class="sidebar">
+                    <div class="sidebar">
+                        <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Categories</span></h5>
+                        <form>
+                            <!-- Display categories dropdown -->
+                            <div class="form-group">
+                                <label for="category">Select Category:</label>
+                                <select class="form-control" id="productCategory" name="category">
+                                    <option value="">Select Category</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+
+
+
+                            <!-- Display age checkboxes -->
+                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3"> Sub Categories</span></h5>
+                            <!-- Display categories dropdown -->
+                            <div class="form-group">
+                                <label for="subcategory" >Select  sub Category:</label>
+                                <select class="form-control" name="sub_category" id="productSubcategory">
+                                    <option value="">Select  Sub Category</option>
+                                    {% for subcategory in subcategories %}
+                                        <option value="{{ subcategory.id }}">{{ subcategory.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                    
+                            <!-- Display age checkboxes -->
+                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Age</span></h5>
+                            <div class="form-group">
+                                <label>Age:</label>
+                                {% for age in ages %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="age{{ age.id }}" name="age" value="{{ age.id }}">
+                                        <label class="form-check-label" for="age{{ age.id }}">{{ age.age_range }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                    
+                            <!-- Display brand checkboxes -->
+                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Brand</span></h5>
+                            <div class="form-group">
+                                <label>Brand:</label>
+                                {% for brand in brands %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="brand{{ brand.id }}" name="brand" value="{{ brand.id }}">
+                                        <label class="form-check-label" for="brand{{ brand.id }}">{{ brand.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+
+                            <!-- Display gift checkboxes -->
+                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Gift</span></h5>
+                            <div class="form-group">
+                                <label>Gifts:</label>
+                                {% for gift in gifts %}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="brand{{ brand.id }}" name="brand" value="{{ brand.id }}">
+                                        <label class="form-check-label" for="brand{{ brand.id }}">{{ brand.name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            
+                    
+                            <button type="submit">Apply Filters</button>
+                        </form>
+                    </div>
+                    
+
+
+
+
+
+
+
+
+                    
+                </div>
+                <!-- Price End -->
+
+
+                
+
+
+
+
+
+                <!-- Color Start -->
+                
+                <!-- Color End -->
+
+                <!-- Size Start -->
+                
+
+                <!-- Subcategory Filter send-->
+                
+                <!-- Subcategory Filter end  -->
+
+                <!-- Brand Filter start-->
+                
+                <!-- brand Filter end  -->
+
+                <!-- age Filter start-->
+                
+                <!-- age  Filter end  -->
+
+
+                <!-- submit Filter start-->
+                
+                <!-- age  Filter end  -->
+
+
+
+                
+
+                <!-- exxxxxxxxample -->
+                
+
+                <!-- Size End -->
+            </div>
+            <!-- Shop Sidebar End -->
+
+
+
+
+
+
+            <!-- Shop Product Start -->
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-8">
+                <div>
+                    <h3 id="category-name">Find the perfect gift</h3>
+                </div>
+                <div class="product-container">
+                    <h2 id="category-name">GIFT FOR KIDS</h2>
+                    
+                    <div id="filtered-products" class="row">
+                        {% for product in products %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="product-card">
+                                    <a href="{% url 'product_details' product.id %}">
+                                        <img src="{{ product.product_image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                    <div class="product-details">
+                                        <h2>{{ product.name }}</h2>
+                                        <p>Price: Rs.{{ product.price }}</p>
+                                        <p>Brand: {{ product.brand }}</p>
+                                        <p>Age: {{ product.age }}</p>
+                                        <div class="buttons">
+                                            <form method="post" action="{% url 'add_to_cart' product.id %}" class="addToCartForm">
+                                                {% csrf_token %}
+                                                <button type="submit" class="add-to-cart-btn" >Add to Cart</button>
+                                            </form>
+                                            <form method="post" action="{% url 'add_to_wishlist' product.id %}" class="addToWishlistForm" id="wish">
+                                                {% csrf_token %}
+                                                <button type="submit" class="add-to-wishlist-btn">Add to Wishlist</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                </div> <div class="row">
+                            {% endif %} -->
+                        {% empty %}
+                            <p class="no-products">No products available.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+    <!-- Shop Product End -->
+
+            
+            <!-- Shop Product End -->
+        </div>
+    </div>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- jQuery script to handle dynamic behavior -->
+<script>
+    
+    $(document).ready(function () {
+        
+        // When the category dropdown changes
+        $('#category').change(function () {
+            // Get the selected category value
+            var categoryId = $(this).val();
+
+            // Disable the subcategory dropdown while loading new options
+            $('#subcategory').prop('disabled', true);
+
+            // Fetch subcategories based on the selected category using AJAX
+            $.ajax({
+                url: '/get_subcategories/',  // Replace with the actual URL to fetch subcategories
+                method: 'GET',
+                data: { category_id: categoryId },
+                success: function (data) {
+                    // Clear existing options
+                    $('#subcategory').empty();
+
+                    // Populate subcategories based on the AJAX response
+                    $.each(data, function (index, subcategory) {
+                        $('#subcategory').append('<option value="' + subcategory.id + '">' + subcategory.name + '</option>');
+                    });
+
+                    // Enable the subcategory dropdown after options are loaded
+                    $('#subcategory').prop('disabled', false);
+                },
+                error: function (error) {
+                    console.log('Error fetching subcategories:', error);
+                    // You can handle errors here
+                }
+            });
+        });
+    });
+
+    // popup meaasage
+    $(document).ready(function () {
+            // When the page is loaded, add event listeners to all wishlist buttons
+            const wishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    addToWishlist(productId);
+                });
+            });
+        });
+
+        // Modify the form submission to handle the response
+        $('form.addToWishlistForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                success: function (data) {
+                    // Check if the response contains a message
+                    if (data.message) {
+                        alert(data.message); // Display the message in an alert box
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+
+
+
+        function addToWishlist(productId) {
+    // Send an AJAX request to your Django views to handle the addition to the wishlist
+    $.ajax({
+        url: `/add_to_wishlist/${productId}/`,
+        method: 'GET',
+        success: function (data) {
+            // Display a styled popup message based on the response
+            showPopup(data.message, data.success ? 'success' : 'error');
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
+function showPopup(message, type) {
+    // Create a new div element for the popup
+    const popup = document.createElement('div');
+    popup.className = `popup-message ${type}`;
+
+    // Create a message box within the popup
+    const messageBox = document.createElement('div');
+    messageBox.className = 'message-box';
+    messageBox.textContent = message;
+
+    // Append the message box to the popup
+    popup.appendChild(messageBox);
+
+    // Append the popup to the body
+    document.body.appendChild(popup);
+
+    // Add the 'show' class to trigger the fadeInOut animation
+    popup.classList.add('show');
+
+    // Remove the popup after 3 seconds (adjust the time as needed)
+    setTimeout(() => {
+        popup.remove();
+    }, 3000);
+}
+
+// Modify the form submission to handle the response
+$('form.addToCartForm').submit(function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = $(this);
+
+            $.ajax({
+                url: form.attr('action'),
+                method: form.attr('method'),
+                data: form.serialize(),
+                success: function (data) {
+                    // Check if the response contains a message
+                    if (data.message) {
+                        alert(data.message); // Display the message in an alert box
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+
+
+
+        // Function to handle the response from the server and display an alert
+    function handleAddToCartResponse(response) {
+        alert(response.message);
+    }
+
+    $(document).ready(function () {
+        // Submit the form using AJAX to handle the response
+        $('.add-to-cart-form').submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: handleAddToCartResponse,
+                dataType: 'json',
+            });
+        });
+    });
+
+
+// filter by category
+
+    
+
+
+<!-- Add this script in your HTML file, preferably at the end before the closing </body> tag -->
+
+    $(document).ready(function () {
+        // Function to fetch and display filtered products
+        function fetchFilteredProducts() {
+            // Get the selected values from the dropdowns
+            var category = $('#productCategory').val();
+            var subcategory = $('#subcategories').val();
+            var brand = $('#brand').val();
+            var age = $('#ages').val();
+
+            // Make an AJAX request to fetch filtered products
+            $.ajax({
+                url: '/filter_products/',  // Replace with the actual URL to fetch filtered products
+                method: 'GET',
+                data: {
+                    category: category,
+                    subcategory: subcategory,
+                    brand: brand,
+                    age: age
+                },
+                success: function (data) {
+                    // Display the filtered products in the main content area
+                    $('#filtered-products').html(data);
+                },
+                error: function (error) {
+                    console.log('Error fetching filtered products:', error);
+                    // You can handle errors here
+                }
+            });
+        }
+
+        // Event listener for category dropdown change
+        $('#productCategory').change(function () {
+            // Fetch and display filtered products when category changes
+            fetchFilteredProducts();
+        });
+
+        // Event listener for subcategory dropdown change
+        $('#subcategories').change(function () {
+            // Fetch and display filtered products when subcategory changes
+            fetchFilteredProducts();
+        });
+
+        // Event listener for brand dropdown change
+        $('#brand').change(function () {
+            // Fetch and display filtered products when brand changes
+            fetchFilteredProducts();
+        });
+
+        // Event listener for age dropdown change
+        $('#ages').change(function () {
+            // Fetch and display filtered products when age changes
+            fetchFilteredProducts();
+        });
+    });
+
+
+</script> 
+    
+
+</body>
+</html>
+{% endblock %}
+
