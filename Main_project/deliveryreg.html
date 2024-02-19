@@ -1,0 +1,259 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Agent Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Delivery Agent Registration</h2>
+        <form id="deliveryRegistrationForm" action="#" method="POST" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div id="nameError" style="color: red;"></div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" style="color: red;"></div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" style="color: red;"></div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <div id="phoneError" style="color: red;"></div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="passwordError" style="color: red;"></div>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <div id="confirmPasswordError" style="color: red;"></div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script>
+        // JavaScript function to toggle visibility of the delivery registration form
+        function toggleDeliveryRegistrationForm() {
+            var deliveryForm = document.getElementById("deliveryRegistrationForm");
+            if (deliveryForm.style.display === "none") {
+                deliveryForm.style.display = "block";
+            } else {
+                deliveryForm.style.display = "none";
+            }
+        }
+
+
+
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+            
+            var nameError = document.getElementById("nameError");
+            var usernameError = document.getElementById("usernameError");
+            var emailError = document.getElementById("emailError");
+            var phoneError = document.getElementById("phoneError");
+            var passwordError = document.getElementById("passwordError");
+            var confirmPasswordError = document.getElementById("confirmPasswordError");
+            
+            var valid = true;
+            
+            // Validate name
+            if (!/^[a-zA-Z ]+$/.test(name.trim())) {
+                nameError.innerHTML = "Name should contain only alphabets";
+                valid = false;
+            } else {
+                nameError.innerHTML = "";
+            }
+            
+            // Validate username
+            if (!/^[a-zA-Z]+$/.test(username.trim())) {
+                usernameError.innerHTML = "Username should contain only alphabets";
+                valid = false;
+            } else {
+                usernameError.innerHTML = "";
+            }
+            
+            // Validate email
+            if (!/^[^\s@]+@[ajce|gmail]+\.[^\s@]+$/.test(email.trim())) {
+                emailError.innerHTML = "Enter a valid email address (ajce.com or gmail.com)";
+                valid = false;
+            } else {
+                emailError.innerHTML = "";
+            }
+            
+            // Validate phone number
+            if (!/^\d{10}$/.test(phone.trim())) {
+                phoneError.innerHTML = "Enter a valid 10-digit phone number";
+                valid = false;
+            } else {
+                phoneError.innerHTML = "";
+            }
+            
+            // Validate password
+            if (password.length < 8) {
+                passwordError.innerHTML = "Password must be at least 8 characters long";
+                valid = false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+            
+            // Validate confirm password
+            if (confirmPassword !== password) {
+                confirmPasswordError.innerHTML = "Passwords do not match";
+                valid = false;
+            } else {
+                confirmPasswordError.innerHTML = "";
+            }
+            
+            return valid;
+        }
+        
+        // Real-time validation for the name field
+        document.getElementById("name").addEventListener("input", function() {
+            var name = this.value;
+            var nameError = document.getElementById("nameError");
+            
+            if (!/^[a-zA-Z ]+$/.test(name.trim())) {
+                nameError.innerHTML = "Name should contain only alphabets";
+            } else {
+                nameError.innerHTML = "";
+            }
+        });
+
+        // Real-time validation for the username field
+        document.getElementById("username").addEventListener("input", function() {
+            var username = this.value;
+            var usernameError = document.getElementById("usernameError");
+            
+            if (!/^[a-zA-Z]+$/.test(username.trim())) {
+                usernameError.innerHTML = "Username should contain only alphabets";
+            } else {
+                usernameError.innerHTML = "";
+            }
+        });
+
+        // Real-time validation for the email field
+        document.getElementById("email").addEventListener("input", function() {
+            var email = this.value;
+            var emailError = document.getElementById("emailError");
+            
+            if (!/^[^\s@]+@(ajce\.com|gmail\.com)$/.test(email.trim())) {
+                emailError.innerHTML = "Enter a valid email address (ajce.com or gmail.com)";
+            } else {
+                emailError.innerHTML = "";
+            }
+        });
+
+
+        // Real-time validation for the password field
+        document.getElementById("password").addEventListener("input", function() {
+            var password = this.value;
+            var passwordError = document.getElementById("passwordError");
+            
+            if (password.length < 8 || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+                passwordError.innerHTML = "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character";
+            } else {
+                passwordError.innerHTML = "";
+            }
+        });
+
+
+        // Real-time validation for the confirm password field
+        // document.getElementById("confirm_password").addEventListener("input", function() {
+        //     var confirmPassword = this.value;
+        //     var password = document.getElementById("password").value;
+        //     var confirmPasswordError = document.getElementById("confirmPasswordError");
+            
+        //     if (confirmPassword !== password) {
+        //         confirmPasswordError.innerHTML = "Passwords do not match";
+        //     } else {
+        //         confirmPasswordError.innerHTML = "";
+        //     }
+        // });
+
+        // Real-time validation for the confirm password field
+        document.getElementById("confirm_password").addEventListener("input", function() {
+            var confirmPassword = this.value;
+            var password = document.getElementById("password").value;
+            var confirmPasswordError = document.getElementById("confirmPasswordError");
+            
+            if (confirmPassword.length < 8 || confirmPassword !== password) {
+                confirmPasswordError.innerHTML = " Password must be at least 8 characters long and match the Password";
+            } else {
+                confirmPasswordError.innerHTML = "";
+            }
+        });
+
+
+        // Real-time validation for the phone number field
+        document.getElementById("phone").addEventListener("input", function() {
+            var phone = this.value;
+            var phoneError = document.getElementById("phoneError");
+            
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.innerHTML = "Phone number must contain exactly 10 digits";
+            } else {
+                phoneError.innerHTML = "";
+            }
+        });
+    </script>
+    
+</body>
+</html>
