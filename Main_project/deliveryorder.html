@@ -1,192 +1,172 @@
-
+{% include 'deliverynavbar.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivery Order</title>
+    <title>User Information</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
+
     <style>
-        * Custom CSS */
+        /* Custom CSS */
         body {
             background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
+
+        .header {
             background-color: #007bff;
             color: white;
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-            font-size: 20px;
-            padding: 15px 20px;
-        }
-        .card-body {
             padding: 20px;
+            text-align: center;
         }
-        .media img {
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-            max-width: 100px;
+
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
         }
-        .media-body {
-            color: #343a40;
+
+        .container {
+            margin-top: 20px;
         }
-        .order-info {
-            font-size: 18px;
+
+        .table {
+            background-color: white;
+        }
+
+        .sidebar {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             margin-bottom: 20px;
         }
-        .order-info p {
-            margin-bottom: 5px;
-        }
-        .delivery-info {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-        }
-        .delivery-info h5 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        .delivery-info p {
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
             margin-bottom: 10px;
         }
 
-
-
-        /* Back Button */
-        .back-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .bg-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
         }
-        .back-btn:hover {
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
             background-color: #0056b3;
+            border-color: #0056b3;
         }
 
-
-         /* Custom CSS */
-         body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-            font-size: 20px;
-            padding: 15px 20px;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .media img {
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-            max-width: 100px;
-        }
-        .media-body {
-            color: #343a40;
-        }
-        .order-item {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        .order-item img {
-            margin-right: 20px;
-        }
-        .order-info {
-            flex: 1;
-        }
-        /* Back Button */
-        .back-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .back-btn:hover {
-            background-color: #0056b3;
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
         }
 
-
-        
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h5 class="mb-0">Order Details</h5>
-        <div class="row">
-            <div class="col-md-8">
-                <!-- Order details -->
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5 class="mb-0">Order Details</h5>
+
+<!-- Header -->
+<!-- <header class="header">
+    <h1>User Information</h1>
+</header> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-md-4">
+            <!-- Sidebar Start -->
+            <div class="sidebar">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Location</span></h5>
+                <form>
+                    <!-- Location dropdown -->
+                    <div class="form-group">
+                        <label for="location">Select Location:</label>
+                        <select class="form-control" id="location" name="location">
+                            <option value="">Select Location</option>
+                            <option value="New York">Ernakulam</option>
+                            <option value="Los Angeles">Kottayam</option>
+                            <!-- <option value="Chicago">Chicago</option>
+                            <option value="Houston">Houston</option> -->
+                            <!-- Add more options as needed -->
+                        </select>
                     </div>
-                    <div class="card-body">
+                </form>
+            </div>
+            <!-- Sidebar End -->
+        </div>
+        <div class="col-lg-9 col-md-8">
+            <div class="container">
+                <h1>Order Details</h1>
+                <a href="{% url 'deliveryhome' %}" class="btn btn-primary mb-3">Back</a>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            
+                            <th>User</th>
+                            <th>Order ID</th>
+                            <th>Created At</th>
+                            <th>Total Amount</th>
+                            <th>Payment Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <!-- Loop through order items -->
                         {% for item in order_items %}
-                        <div class="media mb-3">
-                            <!-- <img src="{{ item.product.image.url }}" class="mr-3" alt="{{ item.product.name }}" style="max-width: 100px;"> -->
-                            <div class="media-body">
-                                <h5 class="mt-0">{{ item.product.name }}</h5>
-                                <!-- <p>{{ item.product.description }}</p> -->
-                                <p>Quantity: {{ item.quantity }}</p>
-                                <p>Price: {{ item.product.price }}</p>
-                                <a href="" class="btn btn-success">Verify Order</a>
-                                <!-- <p>Total: {{ item.item_total }}</p> -->
-                            </div>
-                        </div>
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.product.price }}</td>
+                            
+                            <td>{{ item.order.user.username }}</td> <!-- Accessing User field -->
+                            <td>{{ item.order.id }}</td> <!-- Accessing Order ID field -->
+                            <td>{{ item.order.created_at }}</td> <!-- Accessing Created At field -->
+                            <td>{{ item.order.total_amount }}</td> <!-- Accessing Total Amount field -->
+                            <td>{{ item.order.payment_status }}</td> <!-- Accessing Payment Status field -->
+                            <td><a href="" class="btn btn-success">Verify Order</a></td>
+                        </tr>
                         {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <!-- Delivery details -->
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5 class="mb-0">Delivery Details</h5>
-                    </div>
-                    <div class="card-body">
-                        <!-- Display delivery information -->
-                        <p><strong>Delivery Address:</strong></p>
-                        <p>{{ delivery_address }}</p>
-                        <p><strong>Delivery Date:</strong></p>
-                        <p>{{ delivery_date }}</p>
-                        <!-- Add more delivery details as needed -->
-                    </div>
-                </div>
-                <a href="{% url 'deliveryhome' %}" class="btn btn-primary">Back</a>
+                    </tbody>
+                </table>
+                
+                    
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap JS and jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
