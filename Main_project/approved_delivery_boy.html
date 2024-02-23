@@ -1,0 +1,211 @@
+
+{% include 'adminpanal.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags, title, and stylesheets -->
+    <style>
+        /* Add this CSS to your existing styles */
+
+.request-messages {
+    margin-top: 30px;
+}
+
+.request-messages h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #f05462;
+    color: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+th:first-child, td:first-child {
+    padding-left: 20px;
+}
+
+th:last-child, td:last-child {
+    padding-right: 20px;
+}
+
+
+
+
+/* neww  */
+/* Approve button */
+.approve-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size as needed */
+    transition-duration: 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.approve-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Side menu -->
+    <div class="side-menu">
+        <!-- Brand name and menu items -->
+    </div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Header with search and user profile -->
+        <div class="header">
+            <!-- Search and user profile -->
+            <div class="nav">
+                <div class="search">
+                    <input type="text" placeholder="Search..">
+                    <button type="submit"><img src="/static/img/deliveryboy/search.png" alt=""></button>
+                </div>
+                <div class="user">
+                    <!-- <a href="#" class="btn">Add New</a>
+                    <img src="notifications.png" alt=""> -->
+                    
+                    <!-- <a href="{% url 'logout' %}">
+                      <button class="dropdown-item" type="button">Log Out</button>
+                  </a> -->
+                  
+                <a href="{% url 'logout' %}" class="logout-btn">Log Out</a>
+                <!-- Other elements -->
+                  {% if user.is_authenticated %}
+                      <!-- Display the user's name when logged in -->
+                      <p class="dropdown-item">Welcome, {{ user.username }}!</p>
+                  {% endif %}
+                  <div class="img-case">
+                    <img src="/static/img/deliveryboy/proimg.jpg" alt="">
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Content section -->
+        <div class="content">
+            <!-- Table for request messages -->
+            <div class="request-messages">
+                <h2>Approved Delivery Boy</h2>
+                <a href="{% url 'adminpanal' %}" class="btn btn-primary mb-3">Back</a>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <!-- <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>District</th>
+                                <th>License ID</th>
+                                <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loop through delivery agent applications -->
+                            {% for application in request_messages %}
+                            <tr>
+                                <td>{{ application.id }}</td>
+                                <td>{{ application.user.username }}</td>
+                                <td>{{ application.user.email }}</td>
+                                <!-- Assuming 'phone_number' is a field in your CustomUser model -->
+                                <td>{{ application.user.phone }}</td>
+                                <!-- <td>{{ application.address }}</td>
+                                <td>{{ application.city }}</td>
+                                <td>{{ application.state }}</td>
+                                <td>{{ application.district }}</td>
+                                <td>{{ application.license_id }}</td> -->
+
+                                <!-- <td><a href="{% url 'approve_application' application.id %}" class="approve-btn" data-application-id="{{ application.id }}">Approve</a></td> -->
+
+                                <!-- Add more table cells if needed -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get all approval buttons
+    const approveButtons = document.querySelectorAll('.approve-btn');
+
+// Add click event listener to each approval button
+approveButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Get application ID from data attribute
+        const applicationId = button.dataset.applicationId;
+
+        // Send AJAX request to approve_application view
+        fetch(`/approve/${applicationId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display success message
+                    alert('Approved successfully');
+
+                    // Disable the button
+                    button.classList.add('disabled');
+                    button.textContent = 'Approved';
+                    button.removeEventListener('click', this);
+                } else {
+                    // Display error message
+                    alert('Failed to approve');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+});
+    </script>
+</body>
+</html>
