@@ -37,6 +37,88 @@
         .table {
             background-color: white;
         }
+
+
+        /* Custom Button Styles */
+        .btn-custom {
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .btn-success-custom {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        .btn-warning-custom {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+        }
+        .btn-secondary-custom {
+            background-color: #92d42f;
+            color: white;
+            border: none;
+        }
+
+        /* Style for the map container */
+        .map-container {
+            min-width: 200px; /* Minimum width for the map */
+            min-height: 200px; /* Minimum height for the map */
+            max-width: 600px; /* Maximum width for the map */
+            max-height: 400px; /* Maximum height for the map */
+            margin-bottom: 20px; /* Add margin at the bottom */
+        }
+
+        /* Style for the assign order section */
+        .assign-order-section {
+            margin-top: 20px;
+        }
+
+
+        /* Style the dropdown container */
+        .select-container {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* Style the dropdown button */
+        .select-container select {
+        appearance: none; /* Remove default styling */
+        -webkit-appearance: none; /* Remove default styling for Safari */
+        -moz-appearance: none; /* Remove default styling for Firefox */
+        background-color: #e3a4a4; /* Background color */
+        padding: 10px; /* Add padding */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Add border radius */
+        cursor: pointer; /* Add cursor pointer */
+        font-size: 16px; /* Font size */
+        color: #0d0e0d; /* Text color */
+        }
+
+        /* Style the dropdown arrow icon */
+        .select-container::after {
+        content: '\25BC'; /* Unicode character for down arrow */
+        font-size: 16px; /* Font size */
+        color: #0c0c0c; /* Text color */
+        position: absolute; /* Position the arrow */
+        top: 50%; /* Center vertically */
+        right: 15px; /* Align to the right */
+        transform: translateY(-50%); /* Adjust vertical position */
+        }
+
+        /* Style the dropdown options */
+        .select-container select option {
+        background-color: #fff; /* Background color */
+        color: #111010; /* Text color */
+        }
+
+        /* Style the dropdown on hover */
+        .select-container:hover select {
+        background-color: #e0e0e0; /* Background color on hover */
+        }
+
     </style>
 </head>
 <body>
@@ -54,18 +136,46 @@
         <thead class="thead-dark">
             <tr>
                 <th>Order ID</th>
+                <th>User</th>
+                
                 <th>Product Name</th>
 				<th>Quantity</th>
 				<th>Item Total</th>
+                <th>Delivery Boy</th>
+                <th>Status</th>
+                <th>Action</th> <!-- New column for action buttons -->
             </tr>
         </thead>
         <tbody>
             {% for order_item in order_items %}
 				<tr>
 					<td>{{ order_item.order.id }}</td>
+                    <td>{{ order_item.order.user.name }}</td> <!-- Assuming user name is stored in the user object -->
+                    
+                    
 					<td>{{ order_item.product.name }}</td>
 					<td>{{ order_item.quantity }}</td>
 					<td>{{ order_item.item_total }}</td>
+                    <!-- <td>{{ order_item.order.user.deliveryagentapplication.user.username }}</td>  -->
+                    <td>
+                        <div class="select-container">
+                            <select name="delivery_agent">
+                                <option value="">Select Delivery Boy</option>
+                                {% for delivery_agent in delivery_agents %}
+                                    <option value="{{ delivery_agent.user.id }}">{{ delivery_agent.user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </td>
+                    
+                    
+                    <!-- Other table data -->
+                    <td>
+                        <button class="btn btn-warning btn-custom" id="pendingButton{{ order_item.id }}" onclick="confirmAction('{{ order_item.id }}')">Pending</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-success btn-custom d-none" id="assignedButton{{ order_item.id }}" onclick="showPopup('{{ order_item.id }}')">Assign delivery Boy</button>
+                    </td>
 				</tr>
 			{% endfor %}
         </tbody>
@@ -81,6 +191,46 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function confirmPending() {
+        var confirmation = confirm("Are you sure you want to mark this order as Pending?");
+        if (confirmation) {
+            // Here you can add the logic to handle the Pending action
+            // For example, you can make an AJAX call to update the status in the backend
+            alert("Order marked as Pending.");
+        }
+    }
 
+    function assignOrder() {
+        // Logic for assigning order goes here
+        alert("Order assigned successfully.");
+    }
+
+    function confirmAction(orderItemId) {
+        var confirmation = confirm("Are you sure you want to assign?");
+        if (confirmation) {
+            // Hide the pending button
+            document.getElementById("pendingButton" + orderItemId).classList.add('d-none');
+            // Show the assigned button
+            document.getElementById("assignedButton" + orderItemId).classList.remove('d-none');
+            // Here you can perform additional actions such as sending a request to the server to update the status
+        }
+    }
+
+
+    function showPopup() {
+        // Show a simple pop-up message
+        alert("Order assigned successfully.");
+    }
+
+
+    // google map 
+    // function openGoogleMaps(orderItemId) {
+        // Replace this with the actual address or coordinates you want to open in Google Maps
+        // var location = "Your Location";
+        // Open Google Maps in a new window/tab
+        // window.open("https://www.google.com/maps?q=" + encodeURIComponent(location), "_blank");
+    // }
+</script>
 </body>
 </html>
