@@ -1,0 +1,126 @@
+{% include 'navbar.html' %}
+{% load static %}
+
+<!-- {% block title %}Product List{% endblock %} -->
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 0.5em;
+        }
+
+        section {
+            padding: 40px;
+            max-width: 300px;
+            margin: 0px  auto;
+            margin-left: 2px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #787171;
+            font-size: 18px; /* Set the font size for h2 */
+
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0080ff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Add styles for icons */
+        i {
+            margin-right: 10px;
+            color: #007BFF;
+
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <header>
+        <h1>Your Dashboard</h1>
+    </header> -->
+
+    <!-- <nav>
+        <a href="#">MY ORDERS</a>
+        <a href="#">ACCOUNT SETTINGS</a>
+        <a href="#">PAYMENTS</a>
+        <a href="#">MY STUFF</a>
+        <a href="#">Logout</a>
+    </nav> -->
+
+    <section>
+        <h2><i class="fas fa-shopping-cart"></i><a href="#">MY ORDERS</a></h2>
+        <!-- Add content for My Orders section -->
+
+        <h2><i class="fas fa-cogs"></i>ACCOUNT SETTINGS</h2>
+        <ul>
+            <li><a href="{% url 'account' %}">Profile Information</a></li>
+            <!-- <li><a href="#">Manage Addresses</a></li>
+            <li><a href="#">PAN Card Information</a></li> -->
+        </ul>
+
+        <h2><i class="fas fa-credit-card"></i>PAYMENTS</h2>
+        <ul>
+            <!-- <li><a href="#">Gift Cards ₹0</a></li>
+            <li><a href="#">Saved UPI</a></li>
+            <li><a href="#">Saved Cards</a></li> -->
+        </ul>
+
+        <h2><i class="fas fa-shopping-bag"></i>MY STUFF</h2>
+        <ul>
+            <!-- <li><a href="#">My Coupons</a></li>
+            <li><a href="#">My Reviews & Ratings</a></li>
+            <li><a href="#">All Notifications</a></li> -->
+            <li><a href="#">My Wishlist</a></li>
+        </ul>
+    </section>
+    <!-- Include Font Awesome JS (for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+</body>
+</html>
+{% endblock %}
