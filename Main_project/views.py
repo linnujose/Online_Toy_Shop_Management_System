@@ -153,9 +153,12 @@ def login(request):
                 #     print("user is admin")                   
                 #     return redirect('http://127.0.0.1:8000/admin/')
 
+
+
                 elif request.user.user_types == CustomUser.ADMIN:
                     print("user is admin")                   
                     return redirect('adminpanal')
+
                 # else:
                 #     print("user is normal")
                 #     return redirect('')
@@ -978,6 +981,8 @@ def deliveryorder(request):
 from django.shortcuts import render
 from .models import OrderItem
 
+@never_cache
+@login_required(login_url='login')
 def deliveryorder(request):
     # Fetching all OrderItem instances
     order_items = OrderItem.objects.all()
@@ -990,7 +995,8 @@ def deliveryorder(request):
     # Rendering the template with the context
     return render(request, 'deliveryorder.html', context)
 
-
+@never_cache
+@login_required(login_url='login')
 def giftfinder(request):
 
     return render(request, 'giftfinder.html')
@@ -1155,7 +1161,23 @@ def orderview(request):
     context = {'order_items': order_items}
     return render(request, 'orderview.html', context)
 
+    
+# new sample
+from django.shortcuts import render
+from .models import OrderItem, DeliveryAgentApplication
 
+def orderview(request):
+    # Query data from both models
+    order_items = OrderItem.objects.all()
+    delivery_agents = DeliveryAgentApplication.objects.all()
+
+    # Pass the data to the template
+    context = {'order_items': order_items, 'delivery_agents': delivery_agents}
+    return render(request, 'orderview.html', context)
+
+# neww 
+
+ 
 # newwwww
 from django.shortcuts import render
 from .models import Order, OrderItem
@@ -1164,6 +1186,25 @@ def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'order_detail.html', {'order': order, 'order_items': order_items})
+
+# neww
+from django.shortcuts import render
+from .models import Order, OrderItem
+
+def order_detail(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order_items = OrderItem.objects.filter(order=order)
+    
+    # Fetch user addresses associated with each order item
+    for order_item in order_items:
+        if order_item.user.profileuser:
+            order_item.user_address = order_item.user.profileuser.address
+            order_item.user_city = order_item.user.profileuser.city
+            order_item.user_state = order_item.user.profileuser.state
+            order_item.user_pincode = order_item.user.profileuser.pincode
+    
+    return render(request, 'order_detail.html', {'order': order, 'order_items': order_items})
+
 
 
 @never_cache
@@ -1190,6 +1231,9 @@ def adminproduct(request):
     return render(request, 'adminproduct.html', context)
 
 
+def assignorder(request):
+
+    return render(request, 'assignorder.html')
 
 
 #chatgpt nrs
@@ -1261,6 +1305,8 @@ def shopbyage(request):
 from django.shortcuts import render
 from .models import Product, Category, Subcategory, Brand, Age
 
+@never_cache
+@login_required(login_url='login')
 def shopbyage(request):
     # Get all products
     products = Product.objects.all()
@@ -1306,10 +1352,7 @@ def shopbyage(request):
 
 
 
-@never_cache
-def user_profile(request):
 
-    return render(request, 'user_profile.html')
 
 
 
@@ -1327,6 +1370,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import DeliveryAgentApplication
 
+@never_cache
+@login_required(login_url='login')
 def deliveryappform(request):
     if request.method == 'POST':
         # Extract form data from the POST request
@@ -1375,6 +1420,8 @@ def approval(request):
 from django.shortcuts import render
 from .models import DeliveryAgentApplication
 
+@never_cache
+@login_required(login_url='login')
 def approval(request):
     # Fetch DeliveryAgentApplications along with associated user details
     delivery_agent_applications = DeliveryAgentApplication.objects.select_related('user').all()
@@ -1437,5 +1484,94 @@ def approved_delivery_boy(request):
 
 
 
+
+
+
+# userdetails 
+from django.shortcuts import render, redirect
+from .models import ProfileUser
+from django.contrib import messages
+
+
+
+@login_required
+def account(request):
+    # Retrieve the logged-in user's information
+    user = request.user
+
+    # You can fetch additional information from the user's profile if needed
+    # For example: profile = user.profileuser
+
+    context = {
+        'user': user,
+        # Add additional context variables as needed
+    }
+
+    return render(request, 'account.html', context)
+
+
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from .models import ProfileUser
+
+@login_required
+def save_profile(request):
+    if request.method == 'POST':
+        # Retrieve or create ProfileUser object for the current user
+        profile, created = ProfileUser.objects.get_or_create(user=request.user)
+        
+        # Update profile information based on form data
+        profile.gender = request.POST.get('gender')
+        profile.phone_number = request.POST.get('phone_number')
+        profile.address = request.POST.get('address')
+        profile.pincode = request.POST.get('pincode')
+        profile.city = request.POST.get('city')
+        profile.state = request.POST.get('state')
+
+
+        # Handle profile image upload if provided in the form
+        profile_image = request.FILES.get('profileImage')
+        if profile_image:
+            profile.profile_image = profile_image
+        
+        # Save the profile
+        profile.save()
+
+        # Redirect to a success URL
+        return redirect('account')  # Replace 'success_url' with the URL you want to redirect to after saving the profile
+
+    # Handle GET request or other cases where POST data is not provided
+    # You may want to render a form for users to submit their profile information
+    return redirect('account.html')  # Replace 'profile_form_url' with the URL of the page containing the profile form
+
+
+
+from django.shortcuts import render
+from .models import DeliveryAgentApplication
+
+def delivery_order_view(request):
+    # Fetch unique districts from DeliveryAgentApplication objects
+    districts = DeliveryAgentApplication.objects.values_list('district', flat=True).distinct()
+    context = {
+        'districts': districts
+    }
+    return render(request, 'deliveryorder.html', context)
+
+
+
+
+
+
+# views.py
+
+from django.shortcuts import render
+
+from .models import DeliveryAgentApplication
+
+def view_delivery_agent_profile(request, delivery_agent_id):
+    delivery_agent = DeliveryAgentApplication.objects.get(pk=delivery_agent_id)
+    profile_image_url = delivery_agent.profile_photo.url
+    
+    return render(request, 'delivery_agent_profile.html', {'delivery_agent': delivery_agent, 'profile_image_url': profile_image_url})
 
 # In your views.py
