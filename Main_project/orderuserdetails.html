@@ -1,0 +1,72 @@
+{% include 'deliverynavbar.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order User Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            margin-top: 20px;
+            margin-left: 1px;
+        }
+
+        .order-details {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Order User Details</h1>
+    <a href="{% url 'deliveryhome' %}" class="btn btn-primary mb-3">Back</a>
+
+    <div class="order-details">
+        
+        
+        <h2>Order ID: {{ order.id }}</h2>
+        <p><strong>User:</strong> {{ order.user.username }}</p>
+        <p><strong>User Address:</strong> {{ order.user.profileuser.address }}, {{ order.user.profileuser.city }}, {{ order.user.profileuser.state }} - {{ order.user.profileuser.pincode }}</p>
+        <p><strong>Phone Number:</strong> {{ order.user.profileuser.phone_number }}</p>
+        <p><strong>Created At:</strong> {{ order.created_at }}</p>
+        <p><strong>Total Amount:</strong> {{ order.total_amount }}</p>
+        <p><strong>Payment Status:</strong> {{ order.payment_status }}</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Your JavaScript code here
+</script>
+</body>
+</html>
