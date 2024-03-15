@@ -8,6 +8,8 @@
     <title>User Information</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
     <style>
         /* Custom CSS */
@@ -36,10 +38,13 @@
 
         .container {
             margin-top: 20px;
+            margin-left: 1px;
         }
 
         .table {
             background-color: white;
+            margin-left: 0px;
+            
         }
 
         .sidebar {
@@ -87,6 +92,212 @@
             background-color: #218838;
             border-color: #218838;
         }
+
+        /* Custom CSS for the call icon */
+        .btn-success i {
+            /* Adjust the size of the icon */
+            font-size: 1.2em;
+            /* Adjust the color of the icon */
+            color: white;
+            /* Add margin to the right of the icon to separate it from the button text */
+            margin-left: 10px;
+        }
+
+        /* Custom CSS for the call icon */
+        .btn-success i {
+            /* Adjust the size of the icon */
+            font-size: 1.2em;
+            /* Adjust the color of the icon */
+            color: #ffffff; /* White color */
+            /* Add margin to the right of the icon to separate it from the button text */
+            margin-left: 5px;
+            /* Apply a shadow effect to the icon */
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            /* Add a transition effect to the icon for smooth hover */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Style the icon on hover */
+        .btn-success:hover i {
+            /* Rotate the icon slightly on hover */
+            transform: rotate(20deg);
+            /* Change the color of the icon on hover */
+            color: #28a745; /* Green color */
+        }
+
+
+        /* Style for the table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Style for table header */
+.table thead th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+}
+
+/* Style for table body */
+.table tbody td {
+    text-align: center;
+    padding: 8px;
+}
+
+/* Style for alternating row colors */
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Style for order ID column */
+.table tbody td:nth-child(odd) {
+    font-weight: bold;
+}
+
+/* Style for button in action column */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+
+/* Style for call icon */
+.fa-phone-alt {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.fa-phone-alt:hover {
+    color: #0056b3;
+}
+
+
+/* new    */
+/* Style for dial pad modal content */
+.modal-content {
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+/* Style for modal header */
+.modal-header {
+    background-color: #007bff; /* Blue header background */
+    border-radius: 10px 10px 0 0;
+}
+
+/* Style for modal title */
+.modal-title {
+    color: #fff; /* White title text */
+    font-weight: bold;
+}
+
+/* Style for close button */
+.close {
+    color: #fff; /* White close button icon */
+    opacity: 0.8;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+/* Style for modal body */
+.modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style for dial pad buttons */
+.dialpad .btn {
+    /* font-size: 1.5em; */
+    border-radius: 1%;
+    margin: 10px;
+    width: 10px;
+    height: 50px;
+    background-color: #fff; /* White button background */
+    color: #007bff; /* Blue button text color */
+    border: 2px solid #007bff; /* Blue border */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition effect */
+    
+}
+
+.dialpad .btn:hover {
+    background-color: #007bff; /* Blue button background on hover */
+    color: #fff; /* White button text color on hover */
+}
+
+/* Style for clear button */
+.dialpad .btn-danger {
+    background-color: #dc3545; /* Red clear button background */
+    color: #fff; /* White clear button text color */
+    border-color: #dc3545; /* Red border color */
+}
+
+/* Style for call button */
+.dialpad .btn-primary {
+    background-color: #28a745; /* Green call button background */
+    color: #fff; /* White call button text color */
+    border-color: #28a745; /* Green border color */
+}
+
+/* Style for phone number input */
+#phoneNumber {
+    border: none;
+    border-bottom: 2px solid #007bff; /* Blue bottom border */
+    background-color: transparent; /* Transparent background */
+    font-size: 2em;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s; /* Smooth transition effect for border color */
+}
+
+#phoneNumber:focus {
+    outline: none;
+    border-color: #0056b3; /* Darker blue border on focus */
+}
+
+/* Style for modal footer */
+.modal-footer {
+    justify-content: center;
+    border-top: none;
+}
+
+/* Style for close button in footer */
+.modal-footer .btn-secondary {
+    background-color: #6c757d; /* Gray close button background */
+    color: #fff; /* White close button text color */
+    border-color: #6c757d; /* Gray border color */
+}
+
+/* Style for call button in footer */
+.modal-footer .btn-primary {
+    background-color: #28a745; /* Green call button background */
+    color: #fff; /* White call button text color */
+    border-color: #28a745; /* Green border color */
+}
+
+/* Style for close button in footer on hover */
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray close button background on hover */
+}
+
+/* Style for call button in footer on hover */
+.modal-footer .btn-primary:hover {
+    background-color: #218838; /* Darker green call button background on hover */
+}
+
+
     </style>
 </head>
 <body>
@@ -98,27 +309,29 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-3 col-md-4">
+        <!-- <div class="col-lg-3 col-md-4"> -->
             <!-- Sidebar Start -->
-            <div class="sidebar">
+            <!-- Inside the sidebar div -->
+
+
+            <!-- <div class="sidebar">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Location</span></h5>
                 <form>
-                    <!-- Location dropdown -->
+                    
                     <div class="form-group">
-                        <label for="location">Select Location:</label>
-                        <select class="form-control" id="location" name="location">
-                            <option value="">Select Location</option>
-                            <option value="New York">Ernakulam</option>
-                            <option value="Los Angeles">Kottayam</option>
-                            <!-- <option value="Chicago">Chicago</option>
-                            <option value="Houston">Houston</option> -->
-                            <!-- Add more options as needed -->
+                        <label for="district">District:</label>
+                        <select class="form-control" id="district" name="district">
+                            <option value="">Select District</option>
+                            {% for district in districts %}
+                            <option value="{{ district }}">{{ district }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </form>
-            </div>
+            </div> -->
+
             <!-- Sidebar End -->
-        </div>
+        <!-- </div> -->
         <div class="col-lg-9 col-md-8">
             <div class="container">
                 <h1>Order Details</h1>
@@ -126,12 +339,16 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
+                            <!-- <th>Product Name</th> -->
+                            <!-- <th>Quantity</th> -->
+                            <!-- <th>Price</th> -->
                             
-                            <th>User</th>
+                            
                             <th>Order ID</th>
+                            <th>product </th>
+                            <th>User</th>
+                            <th> user Address</th>
+                            <th>phone number</th>
                             <th>Created At</th>
                             <th>Total Amount</th>
                             <th>Payment Status</th>
@@ -141,19 +358,45 @@
                     <tbody>
                         <!-- Loop through order items -->
                         {% for item in order_items %}
-                        <tr>
-                            <td>{{ item.product.name }}</td>
-                            <td>{{ item.quantity }}</td>
-                            <td>{{ item.product.price }}</td>
-                            
-                            <td>{{ item.order.user.username }}</td> <!-- Accessing User field -->
-                            <td>{{ item.order.id }}</td> <!-- Accessing Order ID field -->
-                            <td>{{ item.order.created_at }}</td> <!-- Accessing Created At field -->
-                            <td>{{ item.order.total_amount }}</td> <!-- Accessing Total Amount field -->
-                            <td>{{ item.order.payment_status }}</td> <!-- Accessing Payment Status field -->
-                            <td><a href="" class="btn btn-success">Verify Order</a></td>
-                        </tr>
-                        {% endfor %}
+                        {% if item.order.payment_status %}
+                            <tr>
+                                <!-- <td>{{ item.product.name }}</td> -->
+                                <!-- <td>{{ item.quantity }}</td> -->
+                                <!-- <td>{{ item.product.price }}</td> -->
+                                <td>{{ item.order.id }}</td> <!-- Accessing Order ID field -->
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.order.user.username }}</td> <!-- Accessing User field -->
+                                
+                                <!-- Combine address, city, state, and pincode in one column -->
+                                <td>
+                                    {{ item.order.user.profileuser.address }}, 
+                                    {{ item.order.user.profileuser.city }}, 
+                                    {{ item.order.user.profileuser.state }} - 
+                                    {{ item.order.user.profileuser.pincode }}
+                                    
+                                </td>
+                                <td>
+                                    {{ item.order.user.profileuser.phone_number }}
+                                </td>
+                                <td>{{ item.order.created_at }}</td> <!-- Accessing Created At field -->
+                                <td>{{ item.order.total_amount }}</td> <!-- Accessing Total Amount field -->
+                                <td>{{ item.order.payment_status }}</td> <!-- Accessing Payment Status field -->
+                                <td>
+                                    <button id="acceptButton" class="btn btn-success" onclick="showPopup()">Accepted</button>
+                                    
+                                    
+                                    
+                                </td>
+                                <td>
+                                    <i class="fas fa-phone-alt ml-1" onclick="showDialpad()">call</i>
+                                </td>
+                                <td>
+                                    <!-- Details button -->
+                                    <button class="btn btn-primary" onclick="showOrderDetails({{ item.order.id }})">Details</button>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                     </tbody>
                 </table>
                 
@@ -163,10 +406,112 @@
     </div>
 </div>
 
+
+<!-- Dialpad Modal -->
+<div class="modal fade" id="dialpadModal" tabindex="-1" role="dialog" aria-labelledby="dialpadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialpadModalLabel">Dialpad</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="dialpad">
+                    <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number" readonly>
+                    <div class="row">
+                        <button class="btn btn-light col-4" onclick="addDigit('1')">1</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('2')">2</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('3')">3</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-light col-4" onclick="addDigit('4')">4</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('5')">5</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('6')">6</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-light col-4" onclick="addDigit('7')">7</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('8')">8</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('9')">9</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-light col-4" onclick="addDigit('*')">*</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('0')">0</button>
+                        <button class="btn btn-light col-4" onclick="addDigit('#')">#</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-danger col-12" onclick="clearDigits()">Clear</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="makeCall()">Call</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Input field to display the phone number -->
+
+
 <!-- Bootstrap JS and jQuery -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script>
+    // function showNotification() {
+    //     alert("Order assigned successfully. New order placed.");
+    // }
+    function showPopup() {
+        // Show the popup message
+        alert("Order accepted. New order placed.");
+
+        // Hide the button
+        $('#acceptButton').hide();
+    }
+
+
+    // function showDialpad() {
+    //     $('#dialpadModal').modal('show');
+    // }
+
+    // Function to show the dialpad modal
+    var phoneNumber = '';
+
+    function showDialpad() {
+        $('#dialpadModal').modal('show');
+    }
+
+    function addDigit(digit) {
+        phoneNumber += digit;
+        document.getElementById('phoneNumber').value = phoneNumber;
+    }
+
+    function clearDigits() {
+        phoneNumber = '';
+        document.getElementById('phoneNumber').value = phoneNumber;
+    }
+
+    function makeCall() {
+        var numberToCall = phoneNumber;
+        // You can implement the call functionality here using a telephony service provider's API
+        alert('Calling ' + numberToCall + '...');
+        // Clear the dial pad after making the call
+        clearDigits();
+    }
+
+
+
+    function showOrderDetails(orderId) {
+            // Redirect to the user order details page with the order ID
+            window.location.href = "{% url 'orderuserdetails' %}";
+        }
+
+
+</script>
 </body>
 </html>
