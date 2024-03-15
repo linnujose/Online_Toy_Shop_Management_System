@@ -136,11 +136,11 @@
         <thead class="thead-dark">
             <tr>
                 <th>Order ID</th>
-                <th>User</th>
-                
+                <th>User</th>  
                 <th>Product Name</th>
 				<th>Quantity</th>
 				<th>Item Total</th>
+                <th>Payment Status</th>
                 <th>Delivery Boy</th>
                 <th>Status</th>
                 <th>Action</th> <!-- New column for action buttons -->
@@ -156,6 +156,7 @@
 					<td>{{ order_item.product.name }}</td>
 					<td>{{ order_item.quantity }}</td>
 					<td>{{ order_item.item_total }}</td>
+                    <td>{{ order_item.order.payment_status }}</td>
                     <!-- <td>{{ order_item.order.user.deliveryagentapplication.user.username }}</td>  -->
                     <td>
                         <div class="select-container">
