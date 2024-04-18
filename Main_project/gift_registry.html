@@ -1,0 +1,401 @@
+{% load static %}
+{% include "base.html" %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registry & Gifting</title>
+    <style>
+        /* CSS for basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #232f3e;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .registry-types {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .registry-type {
+            width: 30%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* CSS for attractive styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #232f3e;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #344955;
+}
+
+main {
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #344955;
+}
+
+.section p {
+    font-size: 18px;
+    color: #666;
+}
+
+.create-registry-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #f15b2a;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.create-registry-btn:hover {
+    background-color: #d94314;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #f15b2a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #d94314;
+}
+
+.registry-types {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.registry-type {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.registry-type:hover {
+    transform: translateY(-5px);
+}
+
+.registry-type img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.registry-type h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #344955;
+}
+
+/* CSS for header image */
+header img {
+    width: 1500px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px;
+    border-radius: 5%; /* Makes the image round */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    transition: transform 0.3s ease; /* Adds a smooth transition effect */
+}
+
+header img:hover {
+    transform: scale(1.1); /* Enlarge the image on hover */
+}
+
+
+/* CSS for header heading and navigation */
+header h1 {
+    font-size: 28px;
+    margin: 0;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #333; /* Text color */
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px; /* Add padding for better spacing */
+    transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+nav ul li a:hover {
+    color: #f15b2a; /* Change color on hover */
+}
+
+/* CSS for h1 heading */
+header h1 {
+    font-size: 36px; /* Adjust the font size as needed */
+    margin: 0; /* Remove any default margin */
+    padding: 20px; /* Add padding for better spacing */
+    color: #f7eeee; /* Text color */
+    text-transform: uppercase; /* Convert text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for better readability */
+    text-align: center; /* Align text to the center */
+}
+
+
+/* CSS for section */
+.section4 {
+    background-color: #f9f9f9; /* Background color */
+    padding: 20px; /* Padding around the section */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    margin-bottom: 20px; /* Spacing between sections */
+}
+
+/* CSS for heading */
+.section4 h2 {
+    font-size: 24px; /* Font size for heading */
+    color: #333; /* Text color */
+    margin-bottom: 10px; /* Spacing below the heading */
+}
+
+/* CSS for form */
+.section4 form {
+    display: flex; /* Display form elements in a row */
+    align-items: center; /* Center vertically */
+}
+
+.section4 form input[type="text"] {
+    flex: 1; /* Take up remaining space */
+    padding: 10px; /* Padding around input field */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.section4 form button {
+    padding: 10px 20px; /* Padding for button */
+    background-color: #f15b2a; /* Background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    margin-left: 10px; /* Spacing between input and button */
+    cursor: pointer; /* Cursor style on hover */
+}
+
+.section4 form button:hover {
+    background-color: #d94314; /* Darker background color on hover */
+}
+
+
+/* CSS for section */
+.section4 {
+    background-color: #f9f9f9; /* Background color */
+    padding: 20px; /* Padding around the section */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    margin-bottom: 20px; /* Spacing between sections */
+    width: 80%; /* Add width */
+    margin: 0 auto; /* Center the section horizontally */
+}
+
+/* CSS for heading */
+.section4 h2 {
+    font-size: 24px; /* Font size for heading */
+    color: #333; /* Text color */
+    margin-bottom: 10px; /* Spacing below the heading */
+}
+
+/* CSS for form */
+.section4 form {
+    display: flex; /* Display form elements in a row */
+    align-items: center; /* Center vertically */
+}
+
+.section4 form input[type="text"] {
+    flex: 1; /* Take up remaining space */
+    padding: 10px; /* Padding around input field */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.section4 form button {
+    padding: 10px 20px; /* Padding for button */
+    background-color: #f15b2a; /* Background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    margin-left: 10px; /* Spacing between input and button */
+    cursor: pointer; /* Cursor style on hover */
+}
+
+.section4 form button:hover {
+    background-color: #d94314; /* Darker background color on hover */
+}
+
+
+/* CSS for form input field */
+.section4 form input[type="text"] {
+    flex: 1; /* Take up remaining space */
+    width: 300px; /* Set the width of the input field */
+    padding: 10px; /* Padding around input field */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="/static/img/gift.jpg" alt="Registry & Gifting Logo">
+        <h1>Registry & Gifting</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Find a registry or gift list</a></li>
+                <li><a href="#">Create a registry or gift list</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="section1">
+            <h2>All Stores, One Registry</h2>
+            <p>Add the gifts you want from any store in the world</p>
+        </div>
+        <div class="section2">
+            <!-- <h2>For weddings, babies, birthdays, or any life event, registries and gift lists ensure the perfect gifts.</h2> -->
+        </div>
+        <div class="section3">
+            <h2>Create a registry or gift list</h2>
+            <a href="#">Create Now</a>
+        </div>
+        <div class="section4">
+            <h2>Find a registry or gift list</h2>
+            <form action="#" method="get">
+                <input type="text" placeholder="Search by name">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="section5">
+            <h2>Learn about our registries and gift lists</h2>
+            <div class="registry-types">
+                <div class="registry-type">
+                    <img src="/static/img/gift/gift6.jpg" alt="Wedding Registry">
+                    <h3>Celebrating a Holidays</h3>
+                </div>
+                <div class="registry-type">
+                    <img src="/static/img/gift/gift2.jpg" alt="Baby Registry">
+                    <h3></h3>
+                </div>
+                <div class="registry-type">
+                    <img src="/static/img/gift/gift4.jpg" alt="Birthday Registry">
+                    <h3>Celebrating a birthday</h3>
+                </div>
+                <!-- Add more registry types as needed -->
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+{% endblock %}
