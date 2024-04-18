@@ -1,0 +1,175 @@
+{% load static %}
+{% include "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Reviews and Ratings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      resize: vertical;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    select,
+    textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #007bff;
+    }
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    .rating {
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .rating input[type="radio"] {
+      display: none;
+    }
+    .rating label {
+      font-size: 30px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .rating label:hover,
+    .rating input[type="radio"]:checked ~ label {
+      color: #ffc107;
+    }
+    .review-text {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Product Reviews and Ratings</h1>
+  <form id="reviewForm">
+    <div class="form-group">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="rating">Rating:</label>
+      <select id="rating" name="rating" required>
+        <option value="">Select Rating</option>
+        <option value="5">★★★★★</option>
+        <option value="4">★★★★☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="1">★☆☆☆☆</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="review">Review:</label>
+      <textarea id="review" name="review" required></textarea>
+    </div>
+    <input type="submit" value="Submit Review">
+  </form>
+</div>
+
+</body>
+</html>
+{% endblock %}
